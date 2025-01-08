@@ -1,5 +1,9 @@
-make start:
+install:
+	npm ci
+
+start:
 	npx start-server -s ./frontend/dist
-make build:
+
+build:
 	rm -rf frontend/dist
 	npm run build
