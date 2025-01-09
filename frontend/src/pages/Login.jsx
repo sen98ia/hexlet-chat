@@ -1,4 +1,3 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -6,14 +5,13 @@ import Col from 'react-bootstrap/Col';
 import Header from '../components/Header';
 import Image from 'react-bootstrap/Image';
 import img from '../assets/login.jpg';
-import SingInForm from '../components/SignInForm';
+import LoginFrom from '../components/LoginForm';
 
 function Login() {
   return (
     <>
       <Header />
       <Container>
-        <Container className="justify-content-center align-content-center">
         <Card>
           <Card.Body>
             <Row>
@@ -21,7 +19,7 @@ function Login() {
                 <Image src={img} fluid />
               </Col>
               <Col>
-                <SingInForm/>
+                <LoginFrom/>
               </Col>
             </Row>
           </Card.Body>
@@ -35,7 +33,6 @@ function Login() {
           </Card.Footer>
         </Card>
       </Container>
-    </Container>
     </>
   );
 }
