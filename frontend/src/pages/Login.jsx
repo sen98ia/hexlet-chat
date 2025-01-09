@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import Image from 'react-bootstrap/Image';
 import img from '../assets/login.jpg';
 import LoginFrom from '../components/LoginForm';
+import { Link } from 'react-router-dom';
 
 function Login() {
   return (
@@ -27,7 +28,7 @@ function Login() {
             <Row>
               <Col>
                 <span>Нет аккаута? </span>
-                <a href="#">Регистрация</a>
+                <Link to="/two">Регистрация</Link>
               </Col>
             </Row>
           </Card.Footer>
