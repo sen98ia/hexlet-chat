@@ -1,10 +1,17 @@
 // import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import Registration from './pages/Registration';
 
-function App() {
+const App = () => {
   return (
-    <Login />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="two" element={<Registration />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
