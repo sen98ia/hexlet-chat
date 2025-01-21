@@ -1,9 +1,9 @@
-import PageLayout from "../components/PageLayout.jsx";
-import RegistrationCard from "../components/RegistrationCard.jsx";
+import PageLayout from '../components/PageLayout';
+import RegistrationCard from '../components/RegistrationCard';
 
-const RegistrationPage = () => {
+function RegistrationPage() {
   return (
-    <PageLayout Component={RegistrationCard}></PageLayout>
+    <PageLayout Component={RegistrationCard} />
   );
 }
 

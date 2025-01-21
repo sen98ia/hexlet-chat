@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 
-const NotFoundCard = () => {
+function NotFoundCard() {
   return (
     <Card>
       <Card.Body>
@@ -11,6 +11,6 @@ const NotFoundCard = () => {
       </Card.Body>
     </Card>
   );
-};
+}
 
 export default NotFoundCard;

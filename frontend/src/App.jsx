@@ -1,12 +1,12 @@
 // import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage.jsx';
-import RegistrationPage from './pages/RegistrationPage.jsx';
-import ChatPage from './pages/ChatPage.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx'
+import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage';
+import NotFoundPage from './pages/NotFoundPage';
+// import ChatPage from './pages/ChatPage';
 
-const App = () => {
+function App() {
   return (
     <BrowserRouter>
       <Routes>

@@ -1,25 +1,25 @@
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import RegistrationForm from "./RegistrationForm.jsx";
 import Image from 'react-bootstrap/Image';
+import RegistrationForm from './RegistrationForm';
 import registrationImage from '../assets/registration.jpg';
 
-const RegistrationCard = () => {
+function RegistrationCard() {
   return (
     <Card>
       <Card.Body>
         <Row>
           <Col>
-          <Image src={registrationImage} alt='Registration image' roundedCircle />
+            <Image src={registrationImage} alt="Registration image" roundedCircle />
           </Col>
           <Col>
-            <RegistrationForm/>
+            <RegistrationForm />
           </Col>
         </Row>
       </Card.Body>
     </Card>
   );
-};
+}
 
 export default RegistrationCard;

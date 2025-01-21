@@ -1,9 +1,9 @@
-import PageLayout from "../components/PageLayout.jsx";
-import LoginCard from "../components/LoginCard.jsx";
+import PageLayout from '../components/PageLayout';
+import LoginCard from '../components/LoginCard';
 
-const LoginPage = () => {
+function LoginPage() {
   return (
-    <PageLayout Component={LoginCard}></PageLayout>
+    <PageLayout Component={LoginCard} />
   );
 }
 

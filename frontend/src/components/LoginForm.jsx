@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const LoginForm = () => {
+function LoginForm() {
   return (
     <Form>
       <h1 className="text-center mb-4">Войти</h1>
@@ -16,6 +16,6 @@ const LoginForm = () => {
       </Button>
     </Form>
   );
-};
+}
 
 export default LoginForm;
