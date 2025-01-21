@@ -10,7 +10,7 @@ const PageLayout = ({Component}) => {
         <Header/>
       </Row>
       <Row className="h-100">
-        <Col className="d-flex justify-content-center align-items-center">
+        <Col className="d-flex justify-content-center align-items-center h-100">
           <Component/>
         </Col>
       </Row>

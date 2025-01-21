@@ -11,8 +11,8 @@ const LoginCard = () => {
     <Card>
       <Card.Body>
         <Row>
-          <Col>
-          <Image src={loginImage} alt='Login image' roundedCircle />
+          <Col className='text-center'>
+            <Image src={loginImage} alt='Login image' roundedCircle />
           </Col>
           <Col>
             <LoginForm/>
