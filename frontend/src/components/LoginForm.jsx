@@ -1,21 +1,44 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useFormik } from 'formik';
 
-function LoginForm() {
+const LoginForm = () => {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      password: '',
+    },
+    onSubmit: (values) => console.log(values),
+  });
+
   return (
-    <Form>
+    <Form onSubmit={formik.handleSubmit}>
       <h1 className="text-center mb-4">Войти</h1>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control type="name" placeholder="Ваш ник" />
+      <Form.Group className="mb-3">
+        <Form.Control
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Ваш ник"
+          onChange={formik.handleChange}
+          value={formik.values.name}
+        />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Control type="password" placeholder="Пароль" />
+      <Form.Group className="mb-3">
+        <Form.Control
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Пароль"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+        />
       </Form.Group>
       <Button variant="outline-primary" type="submit" className="w-100">
         Войти
       </Button>
     </Form>
   );
-}
+};
 
 export default LoginForm;
