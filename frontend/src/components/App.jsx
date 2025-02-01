@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<ChatPage />} />
         </PrivateRoute> */}
         {/* <Route path="/" element={<LoginPage />} /> */}
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

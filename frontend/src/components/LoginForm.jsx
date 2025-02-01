@@ -1,15 +1,34 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+// import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
+// import { useLocation, useNavigate } from 'react-router-dom';
+// import useAuth from '../hooks/index.jsx';
+import routes from '../routes.js';
 
 const LoginForm = () => {
+  // const auth = useAuth();
+  // const [authFailed, setAuthFailed] = useState(false);
+  // const location = useLocation();
+  // const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
-      name: '',
+      username: '',
       password: '',
     },
-    onSubmit: (values) => console.log(values),
+    onSubmit: async (values) => {
+      await axios.post(routes.loginPath(), values)
+        .then((response) => {
+          // const user = response.data;
+          // localStorage.setItem('userId', JSON.stringify(user));
+          // setAuthFailed(false);
+          console.log(values);
+          console.log(response.data);
+          // auth.logIn();
+        })
+        .cath((error) => console.log(error));
+    },
   });
 
   return (
@@ -18,8 +37,8 @@ const LoginForm = () => {
       <Form.Group className="mb-3">
         <Form.Control
           type="text"
-          name="name"
-          id="name"
+          name="username"
+          id="username"
           placeholder="Ваш ник"
           onChange={formik.handleChange}
           value={formik.values.name}
