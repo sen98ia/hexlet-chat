@@ -1,10 +1,10 @@
-import PageLayout from '../components/PageLayout';
-import RegistrationCard from '../components/RegistrationCard';
+import PageLayout from '../components/PageLayout.jsx';
+import RegistrationCard from '../components/RegistrationCard.jsx';
 
-function RegistrationPage() {
-  return (
-    <PageLayout Component={RegistrationCard} />
-  );
-}
+const RegistrationPage = () => (
+  <PageLayout>
+    <RegistrationCard />
+  </PageLayout>
+);
 
 export default RegistrationPage;

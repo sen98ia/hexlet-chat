@@ -1,10 +1,10 @@
-import PageLayout from '../components/PageLayout';
-import NotFoundCard from '../components/NotFoundCard';
+import PageLayout from '../components/PageLayout.jsx';
+import NotFoundCard from '../components/NotFoundCard.jsx';
 
-function NotFoundPage() {
-  return (
-    <PageLayout Component={NotFoundCard} />
-  );
-}
+const NotFoundPage = () => (
+  <PageLayout>
+    <NotFoundCard />
+  </PageLayout>
+);
 
 export default NotFoundPage;

@@ -1,10 +1,10 @@
-import PageLayout from '../components/PageLayout';
-import LoginCard from '../components/LoginCard';
+import PageLayout from '../components/PageLayout.jsx';
+import LoginCard from '../components/LoginCard.jsx';
 
-function LoginPage() {
-  return (
-    <PageLayout Component={LoginCard} />
-  );
-}
+const LoginPage = () => (
+  <PageLayout>
+    <LoginCard />
+  </PageLayout>
+);
 
 export default LoginPage;
