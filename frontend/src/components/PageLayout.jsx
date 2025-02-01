@@ -1,9 +1,9 @@
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Header from './Header';
+import Header from './Header.jsx';
 
-function PageLayout({ Component }) {
+function PageLayout({ children }) {
   return (
     <Container fluid className="h-100 d-flex flex-column">
       <Row>
@@ -11,7 +11,7 @@ function PageLayout({ Component }) {
       </Row>
       <Row className="h-100">
         <Col className="d-flex justify-content-center align-items-center h-100">
-          <Component />
+          {children}
         </Col>
       </Row>
     </Container>
