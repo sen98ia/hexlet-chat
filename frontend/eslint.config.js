@@ -57,6 +57,7 @@ export default [
         'error',
         {
           jsx: 'always',
+          js: 'ignorePackages',
         },
       ],
       'import/no-named-as-default': 'off',
