@@ -1,16 +1,16 @@
 import axios from 'axios';
-// import React, { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
-// import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import useAuth from '../hooks/index.jsx';
 import routes from '../routes.js';
+// добавить сюда экшены
 
 const LoginForm = () => {
   // const auth = useAuth();
-  // const [authFailed, setAuthFailed] = useState(false);
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  const [authFailed, setAuthFailed] = useState(false);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -20,14 +20,21 @@ const LoginForm = () => {
     onSubmit: async (values) => {
       await axios.post(routes.loginPath(), values)
         .then((response) => {
-          // const user = response.data;
-          // localStorage.setItem('userId', JSON.stringify(user));
-          // setAuthFailed(false);
-          console.log(values);
-          console.log(response.data);
+          setAuthFailed(false);
+          const { data } = response;
+          localStorage.setItem('userId', JSON.stringify(data));
           // auth.logIn();
+          navigate('/');
         })
-        .cath((error) => console.log(error));
+        .catch((error) => {
+          formik.setSubmitting(false);
+          setAuthFailed(true);
+          // if (error.isAxiosError && error.response.status === 401) {
+          //   // state.error = 'ошибка авторизации'
+          // } else {
+          //   // state.error = 'ошибка сети'
+          // }
+        });
     },
   });
 
@@ -41,7 +48,9 @@ const LoginForm = () => {
           id="username"
           placeholder="Ваш ник"
           onChange={formik.handleChange}
-          value={formik.values.name}
+          value={formik.values.username}
+          isInvalid={authFailed}
+          required
         />
       </Form.Group>
       <Form.Group className="mb-3">
@@ -52,7 +61,10 @@ const LoginForm = () => {
           placeholder="Пароль"
           onChange={formik.handleChange}
           value={formik.values.password}
+          isInvalid={authFailed}
+          required
         />
+        <Form.Control.Feedback type="invalid">имя или пароль некорректны</Form.Control.Feedback>
       </Form.Group>
       <Button variant="outline-primary" type="submit" className="w-100">
         Войти
