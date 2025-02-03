@@ -3,13 +3,12 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-// import useAuth from '../hooks/index.jsx';
+import useAuth from '../hooks/index.jsx';
 import routes from '../routes.js';
-// добавить сюда экшены
 
 const LoginForm = () => {
-  // const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -21,9 +20,7 @@ const LoginForm = () => {
       await axios.post(routes.loginPath(), values)
         .then((response) => {
           setAuthFailed(false);
-          const { data } = response;
-          localStorage.setItem('userId', JSON.stringify(data));
-          // auth.logIn();
+          auth.handleLogIn(response.data);
           navigate('/');
         })
         .catch((error) => {
