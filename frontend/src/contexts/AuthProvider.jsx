@@ -1,17 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AuthContext from './index.jsx';
+import { setLogIn, setLogOut } from '../store/authSlice.js';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isAuth, setAuth] = useState(false);
+  const dispatch = useDispatch();
 
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    localStorage.removeItem('userId');
-    setLoggedIn(false);
+  const handleLogIn = (authData) => {
+    dispatch(setLogIn(authData));
+    setAuth(true);
+  };
+  const handleLogOut = () => {
+    dispatch(setLogOut());
+    setAuth(false);
   };
 
+  // вроде бы и нужна перерисовка всего, еслиа авторизация изменяется
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ isAuth, handleLogIn, handleLogOut }}>
       {children}
     </AuthContext.Provider>
   );
