@@ -29,7 +29,6 @@ const App = () => (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<ChatPage />} /> */}
           <Route path="/" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
