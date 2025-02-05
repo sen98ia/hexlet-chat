@@ -15,8 +15,27 @@ export const messagesApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getMessages: (builder).query({
+    getMessages: builder.query({
       query: () => '',
+    }),
+    addMessage: builder.mutation({
+      query: (newMessage) => ({
+        method: 'POST',
+        body: newMessage,
+      }),
+    }),
+    editMessage: builder.mutation({
+      query: (id, editedMessage) => ({
+        url: id,
+        method: 'PATCH',
+        body: editedMessage,
+      }),
+    }),
+    removeMessage: builder.mutation({
+      query: (id) => ({
+        url: id,
+        method: 'DELETE',
+      }),
     }),
   }),
 });

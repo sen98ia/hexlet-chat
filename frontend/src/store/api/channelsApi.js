@@ -24,11 +24,32 @@ export const channelsApi = createApi({
         body: channelName,
       }),
     }),
+    editChannel: builder.mutation({
+      query: (id, editedChannel) => ({
+        url: id,
+        method: 'PATCH',
+        body: editedChannel,
+      }),
+    }),
+    removeChannel: builder.mutation({
+      query: (id) => ({
+        url: id,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-const { useGetChannelsQuery } = channelsApi;
+const {
+  useGetChannelsQuery,
+  useAddChannelMutation,
+  useEditChannelMutation,
+  useRemoveChannelMutation,
+} = channelsApi;
 
 export {
   useGetChannelsQuery as getChannels,
+  useAddChannelMutation as addChannel,
+  useEditChannelMutation as editChannel,
+  useRemoveChannelMutation as removeChannel,
 };
