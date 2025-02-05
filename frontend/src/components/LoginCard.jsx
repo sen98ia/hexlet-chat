@@ -20,7 +20,7 @@ const LoginCard = () => (
     </Card.Body>
     <Card.Footer className="text-center">
       <span>Нет аккаунта? </span>
-      <Link to="registration">Регистрация</Link>
+      <Link to="/registration">Регистрация</Link>
     </Card.Footer>
   </Card>
 );
