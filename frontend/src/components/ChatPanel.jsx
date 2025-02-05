@@ -1,5 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import ChatForm from './ChatForm.jsx';
 
 const ChatPannel = () => (
   <Container>
@@ -17,7 +18,7 @@ const ChatPannel = () => (
       для сообщений
     </Row>
     <Row>
-      форма для отправки сообщений
+      <ChatForm />
     </Row>
   </Container>
 );
