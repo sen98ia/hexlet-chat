@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/index.jsx';
-import routes from '../routes.js';
+import useAuth from '../../hooks/index.jsx';
+import routes from '../../routes.js';
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const auth = useAuth();
   const navigate = useNavigate();
 
@@ -20,17 +21,18 @@ const LoginForm = () => {
       await axios.post(routes.loginPath(), values)
         .then((response) => {
           setAuthFailed(false);
+          setErrorMessage('');
           auth.handleLogIn(response.data);
           navigate('/');
         })
         .catch((error) => {
           formik.setSubmitting(false);
           setAuthFailed(true);
-          // if (error.isAxiosError && error.response.status === 401) {
-          //   // state.error = 'ошибка авторизации'
-          // } else {
-          //   // state.error = 'ошибка сети'
-          // }
+          if (error.isAxiosError && error.response.status === 401) {
+            setErrorMessage('имя или пароль некорректны');
+          } else {
+            setErrorMessage('ошибка сети');
+          }
         });
     },
   });
@@ -61,7 +63,7 @@ const LoginForm = () => {
           isInvalid={authFailed}
           required
         />
-        <Form.Control.Feedback type="invalid">имя или пароль некорректны</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{errorMessage}</Form.Control.Feedback>
       </Form.Group>
       <Button variant="outline-primary" type="submit" className="w-100">
         Войти

@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import RegistrationForm from './RegistrationForm.jsx';
-import registrationImage from '../assets/registration.jpg';
+import registrationImage from '../../assets/registration.jpg';
 
 function RegistrationCard() {
   return (

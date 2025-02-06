@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
-import { getChannels } from '../store/api/channelsApi.js';
+import { getChannels } from '../../store/api/channelsApi.js';
 
 const ChannelsPanel = () => {
   const { data: channels, isLoading, refetch } = getChannels();
