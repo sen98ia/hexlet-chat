@@ -1,4 +1,4 @@
-import PageLayout from '../components/PageLayout.jsx';
+import PageLayout from '../components/layout/PageLayout.jsx';
 import NotFoundCard from '../components/NotFoundCard.jsx';
 
 const NotFoundPage = () => (

@@ -1,5 +1,5 @@
-import PageLayout from '../components/PageLayout.jsx';
-import ChatContainer from '../components/ChatContainer.jsx';
+import PageLayout from '../components/layout/PageLayout.jsx';
+import ChatContainer from '../components/chat/ChatContainer.jsx';
 
 const ChatPage = () => (
   <PageLayout>

@@ -1,5 +1,5 @@
-import PageLayout from '../components/PageLayout.jsx';
-import RegistrationCard from '../components/RegistrationCard.jsx';
+import PageLayout from '../components/layout/PageLayout.jsx';
+import RegistrationCard from '../components/registration/RegistrationCard.jsx';
 
 const RegistrationPage = () => (
   <PageLayout>
