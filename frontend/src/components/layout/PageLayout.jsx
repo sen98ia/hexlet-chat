@@ -4,7 +4,9 @@ import Header from './Header.jsx';
 const PageLayout = ({ children }) => (
   <Container fluid className="d-flex flex-column h-100">
     <Row>
-      <Header />
+      <Col className="p-0">
+        <Header />
+      </Col>
     </Row>
     <Row className="justify-content-center align-content-center h-100">
       <Container fluid className="h-100">
