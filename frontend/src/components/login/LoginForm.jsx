@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/index.jsx';
 import routes from '../../routes.js';
@@ -11,6 +11,11 @@ const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const auth = useAuth();
   const navigate = useNavigate();
+
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -38,25 +43,32 @@ const LoginForm = () => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form onSubmit={formik.handleSubmit} className="mt-3 mt-md-0">
       <h1 className="text-center mb-4">Войти</h1>
-      <Form.Group className="mb-3">
+      <FloatingLabel
+        className="mb-4"
+        controlId="username"
+        label="Ваш ник"
+      >
         <Form.Control
           type="text"
           name="username"
-          id="username"
           placeholder="Ваш ник"
           onChange={formik.handleChange}
           value={formik.values.username}
           isInvalid={authFailed}
+          ref={inputRef}
           required
         />
-      </Form.Group>
-      <Form.Group className="mb-3">
+      </FloatingLabel>
+      <FloatingLabel
+        className="mb-4"
+        controlId="password"
+        label="Пароль"
+      >
         <Form.Control
           type="password"
           name="password"
-          id="password"
           placeholder="Пароль"
           onChange={formik.handleChange}
           value={formik.values.password}
@@ -64,7 +76,7 @@ const LoginForm = () => {
           required
         />
         <Form.Control.Feedback type="invalid">{errorMessage}</Form.Control.Feedback>
-      </Form.Group>
+      </FloatingLabel>
       <Button variant="outline-primary" type="submit" className="w-100">
         Войти
       </Button>
