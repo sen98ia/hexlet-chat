@@ -5,11 +5,11 @@ const authSlice = createSlice({
   initialState: { username: null, token: null },
   reducers: {
     setLogIn: (state, { payload }) => {
-      localStorage.setItem('userId', JSON.stringify(payload));
+      localStorage.setItem('user', JSON.stringify(payload));
       Object.assign(state, payload);
     },
     setLogOut: (state) => {
-      localStorage.removeItem('userId');
+      localStorage.removeItem('user');
       Object.assign(state, { username: null, token: null });
     },
   },

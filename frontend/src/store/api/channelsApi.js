@@ -5,11 +5,10 @@ export const channelsApi = createApi({
   reducerPath: 'channelsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: routes.channelsPath(),
-    prepareHeaders: (headers, { getState }) => {
-      const { token } = getState().auth;
+    prepareHeaders: (headers) => {
+      const { token } = JSON.parse(localStorage.getItem('user'));
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
-        console.log(`token is working: ${token}`);
       }
       return headers;
     },
