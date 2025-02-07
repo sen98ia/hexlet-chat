@@ -1,10 +1,10 @@
-import PageLayout from '../components/layout/PageLayout.jsx';
+import ChatLayout from '../components/layout/ChatLayout.jsx';
 import ChatContainer from '../components/chat/ChatContainer.jsx';
 
 const ChatPage = () => (
-  <PageLayout>
+  <ChatLayout>
     <ChatContainer />
-  </PageLayout>
+  </ChatLayout>
 );
 
 export default ChatPage;
