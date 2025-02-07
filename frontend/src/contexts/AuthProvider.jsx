@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AuthContext from './index.jsx';
-import { setLogIn, setLogOut } from '../store/authSlice.js';
+import { setLogIn, setLogOut } from '../store/slices/authSlice.js';
 
 const AuthProvider = ({ children }) => {
-  const [isAuth, setAuth] = useState(false);
+  const user = localStorage.getItem('user');
+  const [isAuth, setAuth] = useState(!!user);
   const dispatch = useDispatch();
 
   const handleLogIn = (authData) => {
     dispatch(setLogIn(authData));
     setAuth(true);
   };
+
   const handleLogOut = () => {
     dispatch(setLogOut());
     setAuth(false);
   };
 
-  // вроде бы и нужна перерисовка всего, еслиа авторизация изменяется
+  // нужно ли useMemo?
   return (
     <AuthContext.Provider value={{ isAuth, handleLogIn, handleLogOut }}>
       {children}
