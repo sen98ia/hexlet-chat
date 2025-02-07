@@ -5,12 +5,12 @@ import ChannelsPanel from './ChannelsPanel.jsx';
 import ChatPannel from './ChatPanel.jsx';
 
 const ChatContainer = () => (
-  <Container>
-    <Row>
-      <Col md={2}>
+  <Container className="h-100 bg-white rounded shadow">
+    <Row className="h-100 flex-md-row">
+      <Col xs={4} md={2} className="px-0 border-end bg-light d-flex flex-column">
         <ChannelsPanel />
       </Col>
-      <Col>
+      <Col className="p-0 h-100">
         <ChatPannel />
       </Col>
     </Row>
