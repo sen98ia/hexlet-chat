@@ -5,12 +5,32 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import * as Yup from 'yup';
+import { getChannels } from '../../store/api/channelsApi.js';
 
 const ChannelsPanelHeader = ({ submitHandler }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => setShowModal(false);
+
+  const handleShowModal = () => setShowModal(true);
+
+  const addChannelButtonStyle = {
+    width: '22px',
+    height: '22px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '14px',
+  };
+
+  const { data: channels } = getChannels();
+  const channelNames = channels.map((channel) => channel.name);
+
   const channelNameValidationSchema = Yup.object().shape({
     channelName: Yup.string()
       .min(3, 'От 3 до 20 символов')
       .max(20, 'От 3 до 20 символов')
+      .notOneOf(channelNames, 'Должно быть уникальным')
       .required('Обязательное поле'),
   });
 
@@ -23,25 +43,10 @@ const ChannelsPanelHeader = ({ submitHandler }) => {
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
       submitHandler(values.channelName);
+      handleCloseModal();
       resetForm();
     },
   });
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    formik.resetForm();
-  };
-  const handleShowModal = () => setShowModal(true);
-  const addChannelButtonStyle = {
-    width: '22px',
-    height: '22px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '14px',
-  };
 
   return (
     <>
@@ -84,8 +89,7 @@ const ChannelsPanelHeader = ({ submitHandler }) => {
               <Button
                 variant="primary"
                 type="submit"
-                disabled={formik.errors.channelName || formik.isSubmitting}
-                onClick={formik.errors.channelName && handleCloseModal}
+                disabled={formik.isSubmitting}
               >
                 Отправить
               </Button>

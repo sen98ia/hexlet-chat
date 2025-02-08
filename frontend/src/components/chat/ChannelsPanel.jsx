@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Spinner from 'react-bootstrap/Spinner';
 import ChannelsPanelHeader from './ChannelsPanelHeader.jsx';
 import СhannelItem from './ChannelItem.jsx';
-import { getChannels, addChannel } from '../../store/api/channelsApi.js';
+import { getChannels, addChannel, removeChannel, editChannel } from '../../store/api/channelsApi.js';
 
 const ChannelsPanel = () => {
   const { data: channels, isLoading, refetch } = getChannels();
@@ -18,8 +18,23 @@ const ChannelsPanel = () => {
 
   const renderHeader = () => {
     // почему каналы ререндерятся только, если я вызываю рефетч тут?
-    refetch();
+    // refetch();
     return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
+  };
+
+  const [remove] = removeChannel();
+  const [edit] = editChannel();
+
+  const handleRemove = (id) => {
+    remove(id);
+    refetch();
+  };
+
+  const handleEdit = (id, newChannelName) => {
+    const editedChannel = { name: newChannelName };
+    console.log(editedChannel);
+    edit(id, editedChannel);
+    refetch();
   };
 
   if (isLoading) {
@@ -37,11 +52,15 @@ const ChannelsPanel = () => {
           {renderHeader()}
         </Col>
       </Row>
-      <Row className="overflow-auto">
-        <Col className="px-2">
-          <Nav fill variant="pills" defaultActiveKey="general" className="h-100 flex-column">
+      <Row className="overflow-auto h-100">
+        <Col className="px-2 flex-column">
+          <Nav fill variant="pills" defaultActiveKey="general" className="flex-column">
             {channels.map((channel) => (
-              <СhannelItem key={channel.id} channel={channel} />
+              <СhannelItem
+                key={channel.id}
+                channel={channel}
+                handlers={{ handleRemove, handleEdit }}
+              />
             ))}
           </Nav>
         </Col>
