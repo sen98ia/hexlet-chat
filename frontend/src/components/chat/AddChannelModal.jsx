@@ -6,10 +6,10 @@ import Form from 'react-bootstrap/Form';
 import * as Yup from 'yup';
 import { getChannels } from '../../store/api/channelsApi.js';
 
-const EditChannelModal = ({
-  submitHandler, showModalHandler, closeModalHandler, channelId,
+const AddChannelModal = ({
+  submitHandler, showModalHandler, closeModalHandler,
 }) => {
-  const { data: channels, isLoading } = getChannels();
+  const { data: channels } = getChannels();
   const channelNames = channels.map((channel) => channel.name);
 
   const channelNameValidationSchema = Yup.object().shape({
@@ -28,7 +28,7 @@ const EditChannelModal = ({
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
-      submitHandler(channelId, values.channelName);
+      submitHandler(values.channelName);
       closeModalHandler();
       resetForm();
     },
@@ -42,7 +42,7 @@ const EditChannelModal = ({
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>Добавить канал</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -64,7 +64,7 @@ const EditChannelModal = ({
             <Button
               variant="primary"
               type="submit"
-              disabled={formik.isSubmitting || isLoading}
+              disabled={formik.isSubmitting}
             >
               Отправить
             </Button>
@@ -75,4 +75,4 @@ const EditChannelModal = ({
   );
 };
 
-export default EditChannelModal;
+export default AddChannelModal;

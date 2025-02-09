@@ -5,9 +5,15 @@ import Nav from 'react-bootstrap/Nav';
 import Spinner from 'react-bootstrap/Spinner';
 import ChannelsPanelHeader from './ChannelsPanelHeader.jsx';
 import СhannelItem from './ChannelItem.jsx';
-import { getChannels, addChannel, removeChannel, editChannel } from '../../store/api/channelsApi.js';
+import {
+  getChannels,
+  addChannel,
+  removeChannel,
+  editChannel,
+} from '../../store/api/channelsApi.js';
 
 const ChannelsPanel = () => {
+  // добавление канала
   const { data: channels, isLoading, refetch } = getChannels();
   const [add] = addChannel();
 
@@ -15,13 +21,7 @@ const ChannelsPanel = () => {
     add({ name: channelName });
     refetch();
   };
-
-  const renderHeader = () => {
-    // почему каналы ререндерятся только, если я вызываю рефетч тут?
-    // refetch();
-    return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
-  };
-
+  // редактирование канала
   const [remove] = removeChannel();
   const [edit] = editChannel();
 
@@ -31,10 +31,14 @@ const ChannelsPanel = () => {
   };
 
   const handleEdit = (id, newChannelName) => {
-    const editedChannel = { name: newChannelName };
-    console.log(editedChannel);
-    edit(id, editedChannel);
+    edit({ id, name: newChannelName });
     refetch();
+  };
+
+  const renderHeader = () => {
+    // обновляет сразу же при добавлении нового канала
+    refetch();
+    return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
   };
 
   if (isLoading) {
