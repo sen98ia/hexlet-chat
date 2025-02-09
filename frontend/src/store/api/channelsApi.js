@@ -24,7 +24,7 @@ export const channelsApi = createApi({
       }),
     }),
     editChannel: builder.mutation({
-      query: (id, editedChannel) => ({
+      query: ({ id, ...editedChannel }) => ({
         url: id,
         method: 'PATCH',
         body: editedChannel,
