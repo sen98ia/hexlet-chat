@@ -1,3 +1,4 @@
+// import { useEffect} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -41,6 +42,10 @@ const ChannelsPanel = () => {
     return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
   };
 
+  // useEffect(() => {
+  //   refetch();
+  // }, [channels]);
+
   if (isLoading) {
     return (
       <Container className="h-100 d-flex justify-content-center align-items-center">
@@ -54,6 +59,7 @@ const ChannelsPanel = () => {
       <Row>
         <Col className="d-flex ps-4 pe-2 p-4 mt-1 mb-2 justify-content-between">
           {renderHeader()}
+          {/* <ChannelsPanelHeader submitHandler={handleSubmitForm} /> */}
         </Col>
       </Row>
       <Row className="overflow-auto h-100">
