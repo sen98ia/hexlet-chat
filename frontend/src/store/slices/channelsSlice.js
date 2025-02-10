@@ -1,19 +1,16 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-
-const channelsAdapter = createEntityAdapter();
-const initialState = channelsAdapter.getInitialState({ activeChannel: null });
+import { createSlice } from '@reduxjs/toolkit';
 
 const channelsSlice = createSlice({
   name: 'channelsSlice',
-  initialState,
+  initialState: { activeChannel: { id: '1', name: 'general', removable: false } },
   reducers: {
     setActive: (state, { payload }) => {
-      const activeChannel = payload;
-      Object.assign(state, activeChannel);
+      const channel = payload;
+      Object.assign(state, { activeChannel: channel });
     },
   },
 });
 
-export const { actions } = channelsSlice;
+export const { setActive } = channelsSlice.actions;
 export const selectors = channelsSlice.getSelectors((state) => state.channels);
 export default channelsSlice.reducer;

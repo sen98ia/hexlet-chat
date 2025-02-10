@@ -1,17 +1,21 @@
+import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import ChatForm from './ChatForm.jsx';
-import { getChannels } from '../../store/api/channelsApi.js';
 
 const ChatPannel = () => {
-  const { data: channels, isLoading, refetch } = getChannels();
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
 
   return (
     <Container fluid className="d-flex flex-column h-100">
       <Row className="bg-light mb-4 p-3 shadow-sm small">
         <Container>
           <Row>
-            <b>имя канала</b>
+            <Col>
+              <span className="me-1">#</span>
+              <b>{activeChannel.name}</b>
+            </Col>
           </Row>
           <Row>
             <span>количество сообщений</span>
@@ -19,7 +23,7 @@ const ChatPannel = () => {
         </Container>
       </Row>
       <Row>
-        Проверка работы dev 2
+        test dev
       </Row>
       <Row>
         <ChatForm />
