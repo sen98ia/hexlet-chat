@@ -19,7 +19,7 @@ const ChatPannel = () => {
         </Container>
       </Row>
       <Row>
-        для сообщений
+        Проверка работы dev 2
       </Row>
       <Row>
         <ChatForm />
