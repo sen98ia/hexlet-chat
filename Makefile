@@ -7,3 +7,12 @@ start:
 build:
 	rm -rf frontend/dist
 	npm run build
+
+start-frontend:
+	cd frontend && npm run dev
+
+start-backend:
+	npx start-server -s ./frontend/dist
+
+develop:
+	make start-backend & make start-frontend
