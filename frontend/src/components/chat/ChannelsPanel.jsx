@@ -38,7 +38,7 @@ const ChannelsPanel = () => {
 
   const renderHeader = () => {
     // обновляет сразу же при добавлении нового канала
-    refetch();
+    // refetch();
     return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
   };
 
