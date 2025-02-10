@@ -1,0 +1,10 @@
+#removableNavElement:hover {
+  background-color: var(--bs-nav-pills-link-active-bg);
+  color: var(--bs-btn-color);
+}
+
+#splitNavElement {
+  color: #0d6efd;
+  background-color: initial;
+  border: none;
+}
