@@ -1,4 +1,3 @@
-// import { useEffect} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,23 +13,21 @@ import {
 } from '../../store/api/channelsApi.js';
 
 const ChannelsPanel = () => {
-  // добавление канала
   const { data: channels, isLoading, refetch } = getChannels();
+  // добавление канала
   const [add] = addChannel();
-
   const handleSubmitForm = (channelName) => {
     add({ name: channelName });
     refetch();
   };
-  // редактирование канала
+  // удаление канала
   const [remove] = removeChannel();
-  const [edit] = editChannel();
-
   const handleRemove = (id) => {
     remove(id);
     refetch();
   };
-
+  // эдит канала
+  const [edit] = editChannel();
   const handleEdit = (id, newChannelName) => {
     edit({ id, name: newChannelName });
     refetch();
@@ -41,10 +38,6 @@ const ChannelsPanel = () => {
     // refetch();
     return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
   };
-
-  // useEffect(() => {
-  //   refetch();
-  // }, [channels]);
 
   if (isLoading) {
     return (

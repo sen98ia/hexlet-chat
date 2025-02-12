@@ -7,7 +7,7 @@ import ChatPannel from './ChatPanel.jsx';
 const ChatContainer = () => (
   <Container className="h-100 bg-white rounded shadow">
     <Row className="h-100 flex-md-row">
-      <Col xs={4} md={2} className="h-100 px-0 border-end bg-light d-flex flex-column">
+      <Col xs={4} md={2} className="h-100 p-0 border-end bg-light d-flex flex-column">
         <ChannelsPanel />
       </Col>
       <Col className="p-0">

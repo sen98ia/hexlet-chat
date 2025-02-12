@@ -5,20 +5,29 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import EditChannelModal from './EditChannelModal.jsx';
+import RemoveChannelModal from './RemoveChannelModal.jsx';
 import { setActive } from '../../store/slices/channelsSlice.js';
 
 const ChannelItem = ({ channel, handlers }) => {
-  // работа с модалкой
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+  // модалка для эдита
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleCloseEditModal = () => setShowEditModal(false);
+  const handleShowEditModal = () => setShowEditModal(true);
+  // модалка для удаления
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const handleCloseRemoveModal = () => setShowRemoveModal(false);
+  const handleShowRemoveModal = () => setShowRemoveModal(true);
 
   const dispatch = useDispatch();
 
   if (!channel.removable) {
     return (
       <Nav.Item className="w-100">
-        <Nav.Link eventKey={channel.name} onClick={() => dispatch(setActive(channel))} className="w-100 text-start text-truncate">
+        <Nav.Link
+          eventKey={channel.name}
+          onClick={() => dispatch(setActive(channel))}
+          className="w-100 text-start text-truncate rounded-0"
+        >
           <span className="me-1">#</span>
           {channel.name}
         </Nav.Link>
@@ -33,7 +42,7 @@ const ChannelItem = ({ channel, handlers }) => {
           id="removableNavElement"
           as={Nav.Link}
           eventKey={channel.name}
-          className="w-100 text-start text-truncate"
+          className="w-100 text-start text-truncate rounded-0"
           onClick={() => dispatch(setActive(channel))}
         >
           <span className="me-1">#</span>
@@ -41,15 +50,21 @@ const ChannelItem = ({ channel, handlers }) => {
         </Button>
         <Dropdown.Toggle split id="splitNavElement" />
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => handlers.handleRemove(channel.id)}>Удалить</Dropdown.Item>
-          <Dropdown.Item onClick={handleShowModal}>Переименовать</Dropdown.Item>
+          <Dropdown.Item onClick={handleShowRemoveModal}>Удалить</Dropdown.Item>
+          <Dropdown.Item onClick={handleShowEditModal}>Переименовать</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <EditChannelModal
         channelId={channel.id}
-        showModalHandler={showModal}
-        closeModalHandler={handleCloseModal}
+        showModalHandler={showEditModal}
+        closeModalHandler={handleCloseEditModal}
         submitHandler={handlers.handleEdit}
+      />
+      <RemoveChannelModal
+        channelId={channel.id}
+        showModalHandler={showRemoveModal}
+        closeModalHandler={handleCloseRemoveModal}
+        submitHandler={handlers.handleRemove}
       />
     </Nav.Item>
   );

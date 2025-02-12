@@ -8,25 +8,31 @@ const ChatPannel = () => {
   const activeChannel = useSelector((state) => state.channels.activeChannel);
 
   return (
-    <Container fluid className="d-flex flex-column h-100">
+    <Container fluid className="d-flex flex-column h-100 m-0">
       <Row className="bg-light mb-4 p-3 shadow-sm small">
-        <Container>
+        <Col>
           <Row>
             <Col>
-              <span className="me-1">#</span>
+              <span className="me-1"><b>#</b></span>
               <b>{activeChannel.name}</b>
             </Col>
           </Row>
           <Row>
-            <span>количество сообщений</span>
+            <Col>
+              <span>количество сообщений</span>
+            </Col>
           </Row>
-        </Container>
+        </Col>
       </Row>
-      <Row>
-        test dev
+      <Row className="overflow-auto">
+        <Col className="mx-md-5">
+          test dev
+        </Col>
       </Row>
-      <Row>
-        <ChatForm />
+      <Row className="mt-auto">
+        <Col className="mx-md-5">
+          <ChatForm />
+        </Col>
       </Row>
     </Container>
   );
