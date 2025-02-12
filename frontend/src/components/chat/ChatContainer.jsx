@@ -10,7 +10,7 @@ const ChatContainer = () => (
       <Col xs={4} md={2} className="h-100 p-0 border-end bg-light d-flex flex-column">
         <ChannelsPanel />
       </Col>
-      <Col className="p-0">
+      <Col className="p-0 h-100 d-flex flex-column">
         <ChatPannel />
       </Col>
     </Row>
