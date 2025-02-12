@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import EditChannelModal from './EditChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
-import { setActive } from '../../store/slices/channelsSlice.js';
 
 const ChannelItem = ({ channel, handlers }) => {
   // модалка для эдита
@@ -18,14 +16,12 @@ const ChannelItem = ({ channel, handlers }) => {
   const handleCloseRemoveModal = () => setShowRemoveModal(false);
   const handleShowRemoveModal = () => setShowRemoveModal(true);
 
-  const dispatch = useDispatch();
-
   if (!channel.removable) {
     return (
       <Nav.Item className="w-100">
         <Nav.Link
           eventKey={channel.name}
-          onClick={() => dispatch(setActive(channel))}
+          onClick={() => handlers.handleSetActive(channel)}
           className="w-100 text-start text-truncate rounded-0"
         >
           <span className="me-1">#</span>
@@ -43,7 +39,7 @@ const ChannelItem = ({ channel, handlers }) => {
           as={Nav.Link}
           eventKey={channel.name}
           className="w-100 text-start text-truncate rounded-0"
-          onClick={() => dispatch(setActive(channel))}
+          onClick={() => handlers.handleSetActive(channel)}
         >
           <span className="me-1">#</span>
           {channel.name}

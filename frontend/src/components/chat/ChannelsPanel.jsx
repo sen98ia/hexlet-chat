@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,9 +12,16 @@ import {
   removeChannel,
   editChannel,
 } from '../../store/api/channelsApi.js';
+import { setActive, setDefault } from '../../store/slices/channelsSlice.js';
 
 const ChannelsPanel = () => {
   const { data: channels, isLoading, refetch } = getChannels();
+  // уставновка антивного канала
+  const dispatch = useDispatch();
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
+  const handleSetActive = (channel) => {
+    dispatch(setActive(channel));
+  };
   // добавление канала
   const [add] = addChannel();
   const handleSubmitForm = (channelName) => {
@@ -25,6 +33,9 @@ const ChannelsPanel = () => {
   const handleRemove = (id) => {
     remove(id);
     refetch();
+    if (id === activeChannel.id) {
+      dispatch(setDefault());
+    }
   };
   // эдит канала
   const [edit] = editChannel();
@@ -33,11 +44,7 @@ const ChannelsPanel = () => {
     refetch();
   };
 
-  const renderHeader = () => {
-    // обновляет сразу же при добавлении нового канала
-    // refetch();
-    return (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
-  };
+  const renderHeader = () => (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
 
   if (isLoading) {
     return (
@@ -52,7 +59,6 @@ const ChannelsPanel = () => {
       <Row>
         <Col className="d-flex ps-4 pe-2 p-4 mt-1 mb-2 justify-content-between">
           {renderHeader()}
-          {/* <ChannelsPanelHeader submitHandler={handleSubmitForm} /> */}
         </Col>
       </Row>
       <Row className="overflow-auto h-100">
@@ -62,7 +68,7 @@ const ChannelsPanel = () => {
               <СhannelItem
                 key={channel.id}
                 channel={channel}
-                handlers={{ handleRemove, handleEdit }}
+                handlers={{ handleRemove, handleEdit, handleSetActive }}
               />
             ))}
           </Nav>
