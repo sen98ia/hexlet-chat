@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -9,7 +10,7 @@ import { getChannels } from '../../store/api/channelsApi.js';
 const AddChannelModal = ({
   submitHandler, showModalHandler, closeModalHandler,
 }) => {
-  const { data: channels } = getChannels();
+  const { data: channels, isLoading } = getChannels();
   const channelNames = channels.map((channel) => channel.name);
 
   const channelNameValidationSchema = Yup.object().shape({
@@ -34,6 +35,13 @@ const AddChannelModal = ({
     },
   });
 
+  const inputRef = useRef();
+  useEffect(() => {
+    if (showModalHandler) {
+      inputRef.current.focus();
+    }
+  }, [showModalHandler]);
+
   return (
     <Modal
       show={showModalHandler}
@@ -46,15 +54,16 @@ const AddChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
+          <Form.Label hidden>Добавить канал</Form.Label>
           <Form.Control
             className="mb-3"
             type="text"
             onChange={formik.handleChange}
+            ref={inputRef}
             id="channelName"
             name="channelName"
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName}
-            autoFocus
           />
           <Form.Control.Feedback type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
           <Container className="d-flex justify-content-end">
@@ -64,7 +73,7 @@ const AddChannelModal = ({
             <Button
               variant="primary"
               type="submit"
-              disabled={formik.isSubmitting}
+              disabled={formik.isSubmitting || isLoading}
             >
               Отправить
             </Button>

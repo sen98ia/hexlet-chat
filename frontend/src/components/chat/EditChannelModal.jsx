@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -34,6 +35,13 @@ const EditChannelModal = ({
     },
   });
 
+  const inputRef = useRef();
+  useEffect(() => {
+    if (showModalHandler) {
+      inputRef.current.focus();
+    }
+  }, [showModalHandler]);
+
   return (
     <Modal
       show={showModalHandler}
@@ -46,15 +54,16 @@ const EditChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
+          <Form.Label hidden>Переименовать канал</Form.Label>
           <Form.Control
             className="mb-3"
             type="text"
             onChange={formik.handleChange}
             id="channelName"
             name="channelName"
+            ref={inputRef}
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName}
-            autoFocus
           />
           <Form.Control.Feedback type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
           <Container className="d-flex justify-content-end">
