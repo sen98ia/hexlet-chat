@@ -9,7 +9,7 @@ const ChatLayout = ({ children }) => (
       </Col>
     </Row>
     <Row className="justify-content-center overflow-hidden align-content-center h-100">
-      <Col className="h-100 py-4">
+      <Col className="h-100 py-4 px-0">
         {children}
       </Col>
     </Row>
