@@ -25,7 +25,7 @@ export const messagesApi = createApi({
       }),
     }),
     editMessage: builder.mutation({
-      query: (id, editedMessage) => ({
+      query: ({ id, ...editedMessage }) => ({
         url: id,
         method: 'PATCH',
         body: editedMessage,
@@ -40,8 +40,16 @@ export const messagesApi = createApi({
   }),
 });
 
-const { useGetMessagesQuery } = messagesApi;
+const {
+  useGetMessagesQuery,
+  useAddMessageMutation,
+  useEditMessageMutation,
+  useRemoveMessageMutation,
+} = messagesApi;
 
 export {
   useGetMessagesQuery as getMessages,
+  useAddMessageMutation as addMessage,
+  useEditMessageMutation as editMessage,
+  useRemoveMessageMutation as removeMessage,
 };
