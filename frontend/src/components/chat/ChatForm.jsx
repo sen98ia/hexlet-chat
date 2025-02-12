@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -11,6 +12,11 @@ const ChatForm = () => {
     },
   });
 
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <Form onSubmit={formik.handleSubmit}>
       <InputGroup className="mb-3">
@@ -18,6 +24,7 @@ const ChatForm = () => {
           placeholder="Введите сообщение..."
           aria-label="Новое сообщение"
           name="textMessage"
+          ref={inputRef}
           value={formik.values.textMessage}
           onChange={formik.handleChange}
         />
