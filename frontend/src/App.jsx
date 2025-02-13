@@ -7,13 +7,13 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../store/index.js';
-import AuthProvider from '../contexts/AuthProvider.jsx';
-import useAuth from '../hooks/index.jsx';
-import LoginPage from '../pages/LoginPage.jsx';
-import RegistrationPage from '../pages/RegistrationPage.jsx';
-import NotFoundPage from '../pages/NotFoundPage.jsx';
-import ChatPage from '../pages/ChatPage.jsx';
+import store from './store/index.js';
+import AuthProvider from './contexts/AuthProvider.jsx';
+import useAuth from './hooks/index.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import RegistrationPage from './pages/RegistrationPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+import ChatPage from './pages/ChatPage.jsx';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
