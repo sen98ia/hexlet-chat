@@ -20,7 +20,7 @@ const RemoveChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <p>Уверены?</p>
-        <Container className="d-flex justify-content-end">
+        <Container className="d-flex justify-content-end px-0">
           <Button variant="secondary" className="me-2" onClick={closeModalHandler}>
             Отменить
           </Button>
