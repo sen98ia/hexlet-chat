@@ -1,10 +1,9 @@
-import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useLogin } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
-import routes from '../../routes.js';
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -12,10 +11,7 @@ const LoginForm = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  const inputRef = useRef();
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const [login] = useLogin();
 
   const formik = useFormik({
     initialValues: {
@@ -23,24 +19,28 @@ const LoginForm = () => {
       password: '',
     },
     onSubmit: async (values) => {
-      await axios.post(routes.loginPath(), values)
-        .then((response) => {
-          setAuthFailed(false);
-          setErrorMessage('');
-          auth.handleLogIn(response.data);
-          navigate('/');
-        })
-        .catch((error) => {
-          formik.setSubmitting(false);
-          setAuthFailed(true);
-          if (error.isAxiosError && error.response.status === 401) {
-            setErrorMessage('имя или пароль некорректны');
-          } else {
-            setErrorMessage('ошибка сети');
-          }
-        });
+      try {
+        await login(values).unwrap();
+        setAuthFailed(false);
+        setErrorMessage('');
+        auth.handleLogIn(true);
+        navigate('/');
+      } catch (error) {
+        formik.setSubmitting(false);
+        setAuthFailed(true);
+        if (error.status === 401) {
+          setErrorMessage('имя или пароль некорректны');
+        } else {
+          setErrorMessage('ошибка сети');
+        }
+      }
     },
   });
+
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <Form onSubmit={formik.handleSubmit} className="mt-3 mt-md-0">
