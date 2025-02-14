@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import socket from '../socket.js';
 import { channelsApi } from '../store/api/channelsApi.js';
+import { messagesApi } from '../store/api/messagesApi.js';
 import ChatLayout from '../components/layout/ChatLayout.jsx';
 import ChatContainer from '../components/chat/ChatContainer.jsx';
 
@@ -10,6 +11,7 @@ const ChatPage = () => {
   useEffect(() => {
     const handleNewMessage = (payload) => {
       console.log(payload);
+      dispatch(messagesApi.util.invalidateTags(['Message']));
     };
     // через тэги
     const handleNewChannel = (payload) => {
