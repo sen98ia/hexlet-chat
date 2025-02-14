@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AuthContext from './index.jsx';
-import { setLogIn, setLogOut } from '../store/slices/authSlice.js';
+import { setLogOut } from '../store/slices/authSlice.js';
 
 const AuthProvider = ({ children }) => {
   const user = localStorage.getItem('user');
   const [isAuth, setAuth] = useState(!!user);
   const dispatch = useDispatch();
 
-  const handleLogIn = (authData) => {
-    dispatch(setLogIn(authData));
+  const handleLogIn = () => {
     setAuth(true);
   };
 
