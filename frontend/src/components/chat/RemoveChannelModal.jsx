@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -7,6 +8,7 @@ const RemoveChannelModal = ({
   submitHandler, showModalHandler, closeModalHandler, channelId,
 }) => {
   const { isLoading } = getChannels();
+  const { t } = useTranslation();
 
   return (
     <Modal
@@ -16,13 +18,13 @@ const RemoveChannelModal = ({
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modal.removeTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Уверены?</p>
+        <p>{t('modal.confirm')}</p>
         <Container className="d-flex justify-content-end px-0">
           <Button variant="secondary" className="me-2" onClick={closeModalHandler}>
-            Отменить
+            {t('modal.cancel')}
           </Button>
           <Button
             variant="danger"
@@ -30,7 +32,7 @@ const RemoveChannelModal = ({
             onClick={() => submitHandler(channelId)}
             disabled={isLoading}
           >
-            Удалить
+            {t('modal.send')}
           </Button>
         </Container>
       </Modal.Body>

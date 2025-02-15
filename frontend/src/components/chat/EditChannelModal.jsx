@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -13,12 +14,14 @@ const EditChannelModal = ({
   const { data: channels, isLoading } = getChannels();
   const channelNames = channels.map((channel) => channel.name);
 
+  const { t } = useTranslation();
+
   const channelNameValidationSchema = Yup.object().shape({
     channelName: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(channelNames, 'Должно быть уникальным')
-      .required('Обязательное поле'),
+      .min(3, t('modal.errors.channelName'))
+      .max(20, t('modal.errors.channelName'))
+      .notOneOf(channelNames, t('modal.errors.existingChannel'))
+      .required(t('requiredField')),
   });
 
   const formik = useFormik({
@@ -50,11 +53,11 @@ const EditChannelModal = ({
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modal.editTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Label hidden>Переименовать канал</Form.Label>
+          <Form.Label hidden>{t('modal.editTitle')}</Form.Label>
           <Form.Control
             className="mb-3"
             type="text"
@@ -68,14 +71,14 @@ const EditChannelModal = ({
           <Form.Control.Feedback type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
           <Container className="d-flex justify-content-end px-0">
             <Button variant="secondary" className="me-2" onClick={closeModalHandler}>
-              Отменить
+              {t('modal.cancel')}
             </Button>
             <Button
               variant="primary"
               type="submit"
               disabled={formik.isSubmitting || isLoading}
             >
-              Отправить
+              {t('modal.send')}
             </Button>
           </Container>
         </Form>

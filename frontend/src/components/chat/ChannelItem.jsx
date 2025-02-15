@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -15,6 +16,8 @@ const ChannelItem = ({ channel, handlers }) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const handleCloseRemoveModal = () => setShowRemoveModal(false);
   const handleShowRemoveModal = () => setShowRemoveModal(true);
+
+  const { t } = useTranslation();
 
   if (!channel.removable) {
     return (
@@ -44,10 +47,12 @@ const ChannelItem = ({ channel, handlers }) => {
           <span className="me-1">#</span>
           {channel.name}
         </Button>
-        <Dropdown.Toggle split id="splitNavElement" />
+        <Dropdown.Toggle split id="splitNavElement">
+          <span className="visually-hidden">{t('channelItem.control')}</span>
+        </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item onClick={handleShowRemoveModal}>Удалить</Dropdown.Item>
-          <Dropdown.Item onClick={handleShowEditModal}>Переименовать</Dropdown.Item>
+          <Dropdown.Item onClick={handleShowRemoveModal}>{t('channelItem.remove')}</Dropdown.Item>
+          <Dropdown.Item onClick={handleShowEditModal}>{t('channelItem.rename')}</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <EditChannelModal

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import AddChannelModal from './AddChannelModal.jsx';
 
@@ -8,25 +9,19 @@ const ChannelsPanelHeader = ({ submitHandler }) => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
-  const addChannelButtonStyle = {
-    width: '22px',
-    height: '22px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '14px',
-  };
+  const { t } = useTranslation();
 
   return (
     <>
-      <b>Каналы</b>
+      <b>{t('channelsPanelHeader.title')}</b>
       <Button
         variant="outline-primary"
+        id="addChannelButton"
         className="p-0 mx-1"
         onClick={handleShowModal}
-        style={addChannelButtonStyle}
+        aria-label={t('channelsPanelHeader.addButtonLabel')}
       >
-        +
+        {t('channelsPanelHeader.addButton')}
       </Button>
       <AddChannelModal
         submitHandler={submitHandler}

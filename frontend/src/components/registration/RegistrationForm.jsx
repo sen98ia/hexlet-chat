@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { useSignUp } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
 
@@ -12,21 +13,22 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
 
   const [signUp] = useSignUp();
+  const { t } = useTranslation();
 
   const userValidationSchema = Yup.object().shape({
     username: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .required('Обязательное поле'),
+      .min(3, t('registrationForm.errors.username'))
+      .max(20, t('registrationForm.errors.username'))
+      .required(t('requiredField')),
     password: Yup.string()
-      .min(6, 'Минимально 6 символов')
-      .required('Обязательное поле'),
+      .min(6, t('registrationForm.errors.password'))
+      .required(t('requiredField')),
     passwordConfirmation: Yup.string()
       .oneOf(
         [Yup.ref('password'), null],
-        'Пароли должны совпадать',
+        t('registrationForm.errors.passwordConfirmation'),
       )
-      .required('Обязательное поле'),
+      .required(t('requiredField')),
   });
 
   const formik = useFormik({
@@ -47,9 +49,9 @@ const RegistrationForm = () => {
         formik.setSubmitting(false);
         console.log(error);
         if (error.status === 409) {
-          setErrorMessage('такой пользователь уже существует');
+          setErrorMessage(t('registrationForm.errors.existingUser'));
         } else {
-          setErrorMessage('ошибка сети');
+          setErrorMessage(t('networkError'));
         }
       }
     },
@@ -62,16 +64,16 @@ const RegistrationForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="mt-3 mt-md-0">
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('registrationForm.title')}</h1>
       <FloatingLabel
         className="mb-4"
         controlId="username"
-        label="Имя пользователя"
+        label={t('registrationForm.fields.username')}
       >
         <Form.Control
           type="text"
           name="username"
-          placeholder="Ваш ник"
+          placeholder={t('registrationForm.fields.username')}
           onChange={formik.handleChange}
           value={formik.values.username}
           isInvalid={formik.touched.username && (formik.errors.username || errorMessage)}
@@ -79,43 +81,45 @@ const RegistrationForm = () => {
           ref={inputRef}
           required
         />
-        <Form.Control.Feedback type="invalid">{formik.errors.username || errorMessage}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid" tooltip>
+          {formik.errors.username || errorMessage}
+        </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
         className="mb-4"
         controlId="password"
-        label="Пароль"
+        label={t('registrationForm.fields.password')}
       >
         <Form.Control
           type="password"
           name="password"
-          placeholder="Пароль"
+          placeholder={t('registrationForm.fields.password')}
           onChange={formik.handleChange}
           value={formik.values.password}
           isInvalid={formik.touched.password && formik.errors.password}
           onBlur={formik.handleBlur}
           required
         />
-        <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
         className="mb-4"
         controlId="passwordConfirmation"
-        label="Подтверждение пароля"
+        label={t('registrationForm.fields.passwordConfirmation')}
       >
         <Form.Control
           type="password"
           name="passwordConfirmation"
-          placeholder="Подтверждение пароля"
+          placeholder={t('registrationForm.fields.passwordConfirmation')}
           onChange={formik.handleChange}
           value={formik.values.passwordConfirmation}
           isInvalid={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
           required
         />
-        <Form.Control.Feedback type="invalid">{formik.errors.passwordConfirmation}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid" tooltip>{formik.errors.passwordConfirmation}</Form.Control.Feedback>
       </FloatingLabel>
       <Button variant="outline-primary" type="submit" className="w-100">
-        Зарегистрироваться
+        {t('registrationForm.submit')}
       </Button>
     </Form>
   );

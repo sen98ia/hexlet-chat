@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
+import { useTranslation } from 'react-i18next';
 import ChatForm from './ChatForm.jsx';
 import { getMessages, addMessage } from '../../store/api/messagesApi.js';
 
@@ -10,6 +11,8 @@ const ChatPannel = () => {
   const activeChannel = useSelector((state) => state.channels.activeChannel);
   const { data: messages, isLoading, refetch } = getMessages();
   const [add] = addMessage();
+
+  const { t } = useTranslation();
 
   const handleAddMessage = (id, text, name) => {
     add({ body: text, username: name, channelId: id });
@@ -39,9 +42,7 @@ const ChatPannel = () => {
           <Row>
             <Col>
               <span>
-                {messagesCount}
-                {' '}
-                сообщений
+                {t('messagesCount.count', { count: messagesCount })}
               </span>
             </Col>
           </Row>

@@ -7,6 +7,8 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import i18next from 'i18next';
+import { initReactI18next } from 'react-i18next';
 import store from './store/index.js';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import useAuth from './hooks/index.jsx';
@@ -14,6 +16,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegistrationPage from './pages/RegistrationPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ChatPage from './pages/ChatPage.jsx';
+import resources from './locales/index.js';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
@@ -24,19 +27,34 @@ const PrivateRoute = ({ children }) => {
   );
 };
 
-const App = () => (
-  <Provider store={store}>
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  </Provider>
-);
+const App = () => {
+  // создание экземпляра i18next
+  const i18nextInstance = i18next.createInstance();
+  i18nextInstance
+    .use(initReactI18next)
+    .init({
+      resources,
+      fallbackLng: 'ru',
+      interpolation: {
+        escapeValue: false,
+      },
+      debug: true,
+    });
+
+  return (
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
+  );
+};
 
 export default App;
