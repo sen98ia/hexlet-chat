@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { useSignUp } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
@@ -15,10 +16,13 @@ const RegistrationForm = () => {
   const [signUp] = useSignUp();
   const { t } = useTranslation();
 
+  const censorshipDictionary = filter.list();
+
   const userValidationSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, t('registrationForm.errors.username'))
       .max(20, t('registrationForm.errors.username'))
+      .notOneOf(censorshipDictionary, t('censorship'))
       .required(t('requiredField')),
     password: Yup.string()
       .min(6, t('registrationForm.errors.password'))

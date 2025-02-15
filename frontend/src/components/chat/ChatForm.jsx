@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
+import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -10,8 +11,13 @@ const ChatForm = ({ submitHandler, channelId }) => {
   const formik = useFormik({
     initialValues: { textMessage: '' },
     onSubmit: (values, { resetForm }) => {
-      submitHandler(channelId, values.textMessage, username);
-      resetForm();
+      if (values.textMessage.length === 0) {
+        formik.setSubmitting(false);
+      } else {
+        const filteredMessage = filter.clean(values.textMessage);
+        submitHandler(channelId, filteredMessage, username);
+        resetForm();
+      }
     },
   });
 

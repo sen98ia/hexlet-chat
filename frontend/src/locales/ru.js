@@ -53,6 +53,7 @@ export default {
       label: 'Имя канала',
       send: 'Отправить',
       cancel: 'Отменить',
+      remove: 'Удалить',
       confirm: 'Уверены?',
       errors: {
         existingChannel: 'Должно быть уникальным',
@@ -71,5 +72,11 @@ export default {
     notFoundError: 'Страница не найдена.',
     networkError: 'Ошибка сети',
     requiredField: 'Обязательное поле',
+    toasts: {
+      channelAdded: 'Канал создан',
+      channelRemoved: 'Канал удалён',
+      channelEdited: 'Канал переименован',
+    },
+    censorship: 'Пожалуйста, используйте цензурные слова',
   },
 };

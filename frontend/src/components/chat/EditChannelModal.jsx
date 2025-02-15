@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import * as Yup from 'yup';
 import { getChannels } from '../../store/api/channelsApi.js';
 
@@ -18,6 +20,7 @@ const EditChannelModal = ({
 
   const channelNameValidationSchema = Yup.object().shape({
     channelName: Yup.string()
+      .transform((value) => filter.clean(value))
       .min(3, t('modal.errors.channelName'))
       .max(20, t('modal.errors.channelName'))
       .notOneOf(channelNames, t('modal.errors.existingChannel'))
@@ -32,9 +35,11 @@ const EditChannelModal = ({
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
-      submitHandler(channelId, values.channelName);
+      const censoredChannelName = filter.clean(values.channelName);
+      submitHandler(channelId, censoredChannelName);
       closeModalHandler();
       resetForm();
+      toast.success(t('toasts.channelEdited'));
     },
   });
 

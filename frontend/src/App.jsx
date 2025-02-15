@@ -9,6 +9,8 @@ import {
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { ToastContainer, Bounce } from 'react-toastify';
+import filter from 'leo-profanity';
 import store from './store/index.js';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import useAuth from './hooks/index.jsx';
@@ -41,10 +43,26 @@ const App = () => {
       debug: true,
     });
 
+  const ru = filter.getDictionary('ru');
+  filter.add(ru);
+
   return (
     <Provider store={store}>
       <AuthProvider>
         <BrowserRouter>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+          />
           <Routes>
             <Route path="/" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
             <Route path="/login" element={<LoginPage />} />

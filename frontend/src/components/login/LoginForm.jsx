@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useLogin } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
 
@@ -22,7 +23,7 @@ const LoginForm = () => {
     },
     onSubmit: async (values) => {
       try {
-        await login(values).unwrap();
+        await login(values);
         setAuthFailed(false);
         setErrorMessage('');
         auth.handleLogIn(true);
@@ -34,6 +35,7 @@ const LoginForm = () => {
           setErrorMessage(t('loginForm.error'));
         } else {
           setErrorMessage(t('networkError'));
+          toast.error(t('networkError'));
         }
       }
     },

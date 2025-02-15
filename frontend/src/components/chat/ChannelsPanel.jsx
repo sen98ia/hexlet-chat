@@ -4,6 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Spinner from 'react-bootstrap/Spinner';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import ChannelsPanelHeader from './ChannelsPanelHeader.jsx';
 import СhannelItem from './ChannelItem.jsx';
 import {
@@ -15,7 +17,10 @@ import {
 import { setActive, setDefault } from '../../store/slices/channelsSlice.js';
 
 const ChannelsPanel = () => {
-  const { data: channels, isLoading, refetch } = getChannels();
+  const {
+    data: channels, isLoading, isError, refetch,
+  } = getChannels();
+  const { t } = useTranslation();
   // уставновка антивного канала
   const dispatch = useDispatch();
   const activeChannel = useSelector((state) => state.channels.activeChannel);
@@ -52,6 +57,10 @@ const ChannelsPanel = () => {
         <Spinner animation="border" variant="primary" />
       </Container>
     );
+  }
+
+  if (isError) {
+    toast.error(t('networkError'));
   }
 
   return (

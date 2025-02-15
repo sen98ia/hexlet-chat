@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,6 +12,13 @@ const ChatPannel = () => {
   const activeChannel = useSelector((state) => state.channels.activeChannel);
   const { data: messages, isLoading, refetch } = getMessages();
   const [add] = addMessage();
+
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const { t } = useTranslation();
 
@@ -48,7 +56,7 @@ const ChatPannel = () => {
           </Row>
         </Col>
       </Row>
-      <Row className="overflow-auto">
+      <Row className="overflow-auto" ref={scrollRef}>
         <Col className="mx-md-5 flex-column">
           {messages && messages.filter(({ channelId }) => channelId === activeChannel.id)
             .map((message) => (

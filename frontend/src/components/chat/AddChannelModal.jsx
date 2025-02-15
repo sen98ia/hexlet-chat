@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import * as Yup from 'yup';
+import filter from 'leo-profanity';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { getChannels } from '../../store/api/channelsApi.js';
 
@@ -18,6 +20,7 @@ const AddChannelModal = ({
 
   const channelNameValidationSchema = Yup.object().shape({
     channelName: Yup.string()
+      .transform((value) => filter.clean(value))
       .min(3, t('modal.errors.channelName'))
       .max(20, t('modal.errors.channelName'))
       .notOneOf(channelNames, t('modal.errors.existingChannel'))
@@ -32,9 +35,11 @@ const AddChannelModal = ({
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
-      submitHandler(values.channelName);
+      const censoredChannelName = filter.clean(values.channelName);
+      submitHandler(censoredChannelName);
       closeModalHandler();
       resetForm();
+      toast.success(t('toasts.channelAdded'));
     },
   });
 
@@ -68,7 +73,7 @@ const AddChannelModal = ({
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
+          <Form.Control.Feedback className="pb-2" type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
           <Container className="d-flex justify-content-end px-0">
             <Button variant="secondary" className="me-2" onClick={closeModalHandler}>
               {t('modal.cancel')}
