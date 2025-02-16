@@ -6,12 +6,12 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 import { ToastContainer, Bounce } from 'react-toastify';
 import filter from 'leo-profanity';
-import store from './store/index.js';
+// import store from './store/index.js';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import useAuth from './hooks/index.jsx';
 import LoginPage from './pages/LoginPage.jsx';
@@ -46,8 +46,15 @@ const App = () => {
   const ru = filter.getDictionary('ru');
   filter.add(ru);
 
+  const rollbarConfig = {
+    accessToken: '****',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    environment: 'production',
+  };
+
   return (
-    <Provider store={store}>
+    <Provider config={rollbarConfig}>
       <AuthProvider>
         <BrowserRouter>
           <ToastContainer
