@@ -67,6 +67,7 @@ export default {
     },
     chatForm: {
       placeholder: 'Введите сообщение...',
+      label: 'Новое сообщение',
       sendButton: '→',
     },
     notFoundError: 'Страница не найдена.',
