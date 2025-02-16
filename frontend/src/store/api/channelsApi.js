@@ -13,7 +13,7 @@ export const channelsApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Channel'],
+  tagTypes: ['Channel', 'Message'],
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => '',
@@ -38,7 +38,7 @@ export const channelsApi = createApi({
       query: (id) => ({
         url: id,
         method: 'DELETE',
-        invalidatesTags: ['Channel'],
+        invalidatesTags: ['Channel', 'Message'],
       }),
     }),
   }),
