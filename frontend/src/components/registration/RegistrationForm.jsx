@@ -4,6 +4,7 @@ import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import filter from 'leo-profanity';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useSignUp } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
@@ -56,6 +57,7 @@ const RegistrationForm = () => {
           setErrorMessage(t('registrationForm.errors.existingUser'));
         } else {
           setErrorMessage(t('networkError'));
+          toast.error(t('networkError'));
         }
       }
     },

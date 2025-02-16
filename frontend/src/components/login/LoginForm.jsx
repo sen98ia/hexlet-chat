@@ -23,12 +23,13 @@ const LoginForm = () => {
     },
     onSubmit: async (values) => {
       try {
-        await login(values);
+        await login(values).unwrap();
         setAuthFailed(false);
         setErrorMessage('');
-        auth.handleLogIn(true);
+        auth.handleLogIn();
         navigate('/');
       } catch (error) {
+        console.log(error);
         formik.setSubmitting(false);
         setAuthFailed(true);
         if (error.status === 401) {
