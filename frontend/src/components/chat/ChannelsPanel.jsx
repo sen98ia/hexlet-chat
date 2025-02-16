@@ -29,14 +29,14 @@ const ChannelsPanel = () => {
   };
   // добавление канала
   const [add] = addChannel();
-  const handleSubmitForm = (channelName) => {
-    add({ name: channelName });
+  const handleSubmitForm = async (channelName) => {
+    await add({ name: channelName });
     refetch();
   };
   // удаление канала
   const [remove] = removeChannel();
-  const handleRemove = (id) => {
-    remove(id);
+  const handleRemove = async (id) => {
+    await remove(id);
     refetch();
     if (id === activeChannel.id) {
       dispatch(setDefault());
@@ -44,8 +44,8 @@ const ChannelsPanel = () => {
   };
   // эдит канала
   const [edit] = editChannel();
-  const handleEdit = (id, newChannelName) => {
-    edit({ id, name: newChannelName });
+  const handleEdit = async (id, newChannelName) => {
+    await edit({ id, name: newChannelName });
     refetch();
   };
 
