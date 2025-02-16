@@ -15,6 +15,7 @@ const EditChannelModal = ({
 }) => {
   const { data: channels, isLoading } = getChannels();
   const channelNames = channels.map((channel) => channel.name);
+  const currentChannelName = channels.find((channel) => channel.id === channelId).name;
 
   const { t } = useTranslation();
 
@@ -29,7 +30,7 @@ const EditChannelModal = ({
 
   const formik = useFormik({
     initialValues: {
-      channelName: '',
+      channelName: currentChannelName,
     },
     validationSchema: channelNameValidationSchema,
     validateOnBlur: false,
@@ -47,6 +48,7 @@ const EditChannelModal = ({
   useEffect(() => {
     if (showModalHandler) {
       inputRef.current.focus();
+      inputRef.current.select();
     }
   }, [showModalHandler]);
 
