@@ -38,8 +38,8 @@ const EditChannelModal = ({
     onSubmit: (values, { resetForm }) => {
       const censoredChannelName = filter.clean(values.channelName);
       submitHandler(channelId, censoredChannelName);
-      closeModalHandler();
       resetForm();
+      closeModalHandler();
       toast.success(t('toasts.channelEdited'));
     },
   });
