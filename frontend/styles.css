@@ -1,4 +1,14 @@
+#removableNavElement {
+  background-color: initial;
+  color: #0d6efd;
+}
+
 #removableNavElement:hover {
+  background-color: initial;
+  color: #0d6efd;
+}
+
+#removableNavElement.active {
   background-color: var(--bs-nav-pills-link-active-bg);
   color: var(--bs-btn-color);
 }
@@ -6,6 +16,12 @@
 #splitNavElement {
   color: #0d6efd;
   background-color: initial;
+  border: none;
+}
+
+.active ~ #splitNavElement {
+  color: var(--bs-btn-color);
+  background-color: #0d6efd;
   border: none;
 }
 
