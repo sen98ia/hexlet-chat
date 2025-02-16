@@ -47,7 +47,7 @@ const App = () => {
   filter.add(ru);
 
   const rollbarConfig = {
-    accessToken: '****',
+    accessToken: '*****',
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',
