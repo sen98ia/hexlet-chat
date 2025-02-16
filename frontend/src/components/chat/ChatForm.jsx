@@ -14,8 +14,8 @@ const ChatForm = ({ submitHandler, channelId }) => {
       if (values.textMessage.length === 0) {
         formik.setSubmitting(false);
       } else {
-        const filteredMessage = filter.clean(values.textMessage);
-        submitHandler(channelId, filteredMessage, username);
+        const censoredMessage = filter.clean(values.textMessage);
+        submitHandler(channelId, censoredMessage, username);
         resetForm();
       }
     },

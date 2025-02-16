@@ -11,7 +11,7 @@ import { getMessages, addMessage } from '../../store/api/messagesApi.js';
 const ChatPannel = () => {
   const activeChannel = useSelector((state) => state.channels.activeChannel);
   const {
-    data: messages, isLoading, isFetching, isSuccess, refetch,
+    data: messages, isLoading, isSuccess, refetch,
   } = getMessages();
   const [add, { isLoading: load, isSuccess: succ, isError: err }] = addMessage();
 
@@ -24,8 +24,8 @@ const ChatPannel = () => {
 
   const { t } = useTranslation();
 
-  const handleAddMessage = (id, text, name) => {
-    add({ body: text, username: name, channelId: id });
+  const handleAddMessage = async (id, text, name) => {
+    await add({ body: text, username: name, channelId: id });
     refetch();
     console.log('новое сообщение');
   };
@@ -39,14 +39,14 @@ const ChatPannel = () => {
     );
   }
 
-  if (isFetching) {
-    console.log('isFetching chat');
-    return (
-      <Container className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner animation="border" variant="primary" />
-      </Container>
-    );
-  }
+  // if (isFetching) {
+  //   console.log('isFetching chat');
+  //   return (
+  //     <Container className="h-100 d-flex justify-content-center align-items-center">
+  //       <Spinner animation="border" variant="primary" />
+  //     </Container>
+  //   );
+  // }
 
   console.log(isSuccess);
   console.log(`load ${load}`);

@@ -9,16 +9,16 @@ import ChatContainer from '../components/chat/ChatContainer.jsx';
 const ChatPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    // const handleNewMessage = (payload) => {
-    //   dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draft) => {
-    //     draft.push(payload);
-    //   }));
-    // };
-
     const handleNewMessage = (payload) => {
-      console.log(payload);
-      dispatch(messagesApi.util.invalidateTags(['Message']));
+      dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draft) => {
+        draft.push(payload);
+      }));
     };
+
+    // const handleNewMessage = (payload) => {
+    //   console.log(payload);
+    //   dispatch(messagesApi.util.invalidateTags(['Message']));
+    // };
 
     const handleNewChannel = (payload) => {
       console.log(`newChannel: ${JSON.stringify(payload)}`);
