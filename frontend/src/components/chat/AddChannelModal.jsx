@@ -43,6 +43,11 @@ const AddChannelModal = ({
     },
   });
 
+  const closeModal = () => {
+    closeModalHandler();
+    formik.resetForm();
+  };
+
   const inputRef = useRef();
   useEffect(() => {
     if (showModalHandler) {
@@ -53,7 +58,7 @@ const AddChannelModal = ({
   return (
     <Modal
       show={showModalHandler}
-      onHide={closeModalHandler}
+      onHide={closeModal}
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -75,7 +80,7 @@ const AddChannelModal = ({
           />
           <Form.Control.Feedback className="pb-2" type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
           <Container className="d-flex justify-content-end px-0">
-            <Button variant="secondary" className="me-2" onClick={closeModalHandler}>
+            <Button variant="secondary" className="me-2" onClick={closeModal}>
               {t('modal.cancel')}
             </Button>
             <Button
