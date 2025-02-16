@@ -9,7 +9,9 @@ const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const handleLogIn = () => {
-    setAuth(true);
+    if (localStorage.getItem('user')) {
+      setAuth(true);
+    }
   };
 
   const handleLogOut = () => {
