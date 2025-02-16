@@ -10,8 +10,10 @@ import { getMessages, addMessage } from '../../store/api/messagesApi.js';
 
 const ChatPannel = () => {
   const activeChannel = useSelector((state) => state.channels.activeChannel);
-  const { data: messages, isLoading, refetch } = getMessages();
-  const [add] = addMessage();
+  const {
+    data: messages, isLoading, isFetching, isSuccess, refetch,
+  } = getMessages();
+  const [add, { isLoading: load, isSuccess: succ, isError: err }] = addMessage();
 
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -25,9 +27,11 @@ const ChatPannel = () => {
   const handleAddMessage = (id, text, name) => {
     add({ body: text, username: name, channelId: id });
     refetch();
+    console.log('новое сообщение');
   };
 
   if (isLoading) {
+    console.log('isLoading...chat');
     return (
       <Container className="h-100 d-flex justify-content-center align-items-center">
         <Spinner animation="border" variant="primary" />
@@ -35,7 +39,22 @@ const ChatPannel = () => {
     );
   }
 
+  if (isFetching) {
+    console.log('isFetching chat');
+    return (
+      <Container className="h-100 d-flex justify-content-center align-items-center">
+        <Spinner animation="border" variant="primary" />
+      </Container>
+    );
+  }
+
+  console.log(isSuccess);
+  console.log(`load ${load}`);
+  console.log(`err ${err}`);
+  console.log(`succ ${succ}`);
+
   const messagesCount = messages.filter(({ channelId }) => activeChannel.id === channelId).length;
+  console.log(messages);
 
   return (
     <Container fluid className="d-flex flex-column h-100 m-0">

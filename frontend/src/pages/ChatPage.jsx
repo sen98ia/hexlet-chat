@@ -9,25 +9,39 @@ import ChatContainer from '../components/chat/ChatContainer.jsx';
 const ChatPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    // const handleNewMessage = (payload) => {
+    //   dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draft) => {
+    //     draft.push(payload);
+    //   }));
+    // };
+
     const handleNewMessage = (payload) => {
       console.log(payload);
       dispatch(messagesApi.util.invalidateTags(['Message']));
     };
-    // через тэги
+
     const handleNewChannel = (payload) => {
       console.log(`newChannel: ${JSON.stringify(payload)}`);
       dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
         draft.push(payload);
       }));
     };
-    // через апдейт квери
+
     const handleRemoveChannel = (payload) => {
-      console.log(`removeChannel: ${JSON.stringify(payload)}`);
-      dispatch(channelsApi.util.invalidateTags(['Channel']));
+      const { id } = payload;
+      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
+        const newDraft = draft.filter((el) => el.id !== id);
+        return newDraft;
+      }));
     };
     const handleRenameChannel = (payload) => {
-      console.log(`renameChannel: ${JSON.stringify(payload)}`);
-      dispatch(channelsApi.util.invalidateTags(['Channel']));
+      const { id, name } = payload;
+      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
+        const index = draft.findIndex((el) => el.id === id);
+        const newDraft = [...draft];
+        newDraft[index].name = name;
+        return newDraft;
+      }));
     };
 
     socket.on('newMessage', handleNewMessage);
