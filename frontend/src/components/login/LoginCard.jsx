@@ -23,7 +23,7 @@ const LoginCard = () => {
       </Card.Body>
       <Card.Footer className="text-center p-4">
         <span>{t('loginCard.text')}</span>
-        <Link to="/registration">{t('loginCard.link')}</Link>
+        <Link to="/signup">{t('loginCard.link')}</Link>
       </Card.Footer>
     </Card>
   );
