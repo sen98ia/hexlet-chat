@@ -31,7 +31,6 @@ const ChannelItem = ({ channel, handlers }) => {
       <Nav.Item className="w-100">
         <Nav.Link
           eventKey={channel.name}
-          // ref={buttonRef}
           onClick={() => handlers.handleSetActive(channel)}
           className={activeChannel.id === channel.id ? activeClassName : className}
         >
@@ -48,7 +47,6 @@ const ChannelItem = ({ channel, handlers }) => {
         <Button
           id="removableNavElement"
           as={Nav.Link}
-          // ref={buttonRef}
           eventKey={channel.name}
           className={activeChannel.id === channel.id ? activeClassName : className}
           onClick={() => handlers.handleSetActive(channel)}
