@@ -69,6 +69,7 @@ const EditChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
+          <label htmlFor="channelName" hidden>{t('modal.label')}</label>
           <Form.Control
             className="mb-3"
             type="text"
@@ -80,7 +81,6 @@ const EditChannelModal = ({
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName}
           />
-          <Form.Label htmlFor="channelName" hidden>{t('modal.label')}</Form.Label>
           <Form.Control.Feedback type="invalid">{formik.errors.channelName}</Form.Control.Feedback>
           <Container className="d-flex justify-content-end px-0">
             <Button variant="secondary" className="me-2" onClick={closeModal}>
