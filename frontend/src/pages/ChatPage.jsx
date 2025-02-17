@@ -38,9 +38,7 @@ const ChatPage = () => {
       const { id, name } = payload;
       dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
         const index = draft.findIndex((el) => el.id === id);
-        const newDraft = [...draft];
-        newDraft[index].name = name;
-        return newDraft;
+        draft[index].name = name;
       }));
     };
 

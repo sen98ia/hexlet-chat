@@ -18,7 +18,7 @@ import { setActive, setDefault } from '../../store/slices/channelsSlice.js';
 
 const ChannelsPanel = () => {
   const {
-    data: channels, isLoading, isError, refetch,
+    data: channels, isLoading, isSuccess, isError, refetch,
   } = getChannels();
   const { t } = useTranslation();
   // уставновка антивного канала
@@ -40,13 +40,18 @@ const ChannelsPanel = () => {
     refetch();
     if (id === activeChannel.id) {
       dispatch(setDefault());
+      console.log(activeChannel);
     }
   };
   // эдит канала
   const [edit] = editChannel();
   const handleEdit = async (id, newChannelName) => {
-    await edit({ id, name: newChannelName });
+    const { data } = await edit({ id, name: newChannelName });
     refetch();
+    console.log(isSuccess);
+    if (id === activeChannel.id) {
+      dispatch(setActive(data));
+    }
   };
 
   const renderHeader = () => (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
