@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
@@ -8,7 +7,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import EditChannelModal from './EditChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
-// import { setActive } from '../../store/slices/channelsSlice.js';
 
 const ChannelItem = ({ channel, handlers }) => {
   // модалка для эдита

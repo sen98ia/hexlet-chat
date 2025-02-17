@@ -69,7 +69,7 @@ const EditChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <label htmlFor="channelName" hidden>{t('modal.label')}</label>
+          <Form.Label htmlFor="channelName" className="visually-hidden">{t('modal.label')}</Form.Label>
           <Form.Control
             className="mb-3"
             type="text"
