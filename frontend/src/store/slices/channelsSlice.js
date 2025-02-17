@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const channelsSlice = createSlice({
   name: 'channelsSlice',
@@ -7,14 +7,9 @@ const channelsSlice = createSlice({
     setActive: (state, { payload }) => {
       const channel = payload;
       Object.assign(state, { activeChannel: channel });
-      console.log('i worked');
-      console.log(channel);
-      console.log(JSON.stringify(current(state)));
     },
     setDefault: (state) => {
       Object.assign(state, { activeChannel: { id: '1', name: 'general', removable: false } });
-      console.log('def worked');
-      console.log(JSON.stringify(current(state)));
     },
   },
 });

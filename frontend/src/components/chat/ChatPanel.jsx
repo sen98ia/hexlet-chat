@@ -9,10 +9,7 @@ import ChatForm from './ChatForm.jsx';
 import { getMessages, addMessage } from '../../store/api/messagesApi.js';
 
 const ChatPannel = () => {
-  const activeChannel = useSelector((state) => {
-    console.log('use selector');
-    return state.channels.activeChannel;
-  });
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
   const {
     data: messages, isLoading, refetch,
   } = getMessages();

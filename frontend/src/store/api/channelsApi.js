@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { setActive, setDefault } from '../slices/channelsSlice.js';
 import routes from '../../routes.js';
 
 export const channelsApi = createApi({
@@ -33,6 +34,14 @@ export const channelsApi = createApi({
         body: editedChannel,
         invalidatesTags: ['Channel'],
       }),
+      onQueryStarted: async (channelData, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setActive(data));
+        } catch (error) {
+          dispatch(setDefault());
+        }
+      },
     }),
     removeChannel: builder.mutation({
       query: (id) => ({
@@ -40,6 +49,14 @@ export const channelsApi = createApi({
         method: 'DELETE',
         invalidatesTags: ['Channel', 'Message'],
       }),
+      onQueryStarted: async (channelData, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setActive(data));
+        } catch (error) {
+          dispatch(setDefault());
+        }
+      },
     }),
   }),
 });
