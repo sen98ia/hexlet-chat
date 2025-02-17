@@ -26,6 +26,14 @@ export const channelsApi = createApi({
         body: channelName,
         invalidatesTags: ['Channel'],
       }),
+      onQueryStarted: async (channelData, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setActive(data));
+        } catch (error) {
+          dispatch(setDefault());
+        }
+      },
     }),
     editChannel: builder.mutation({
       query: ({ id, ...editedChannel }) => ({

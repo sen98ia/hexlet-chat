@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -7,7 +8,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import EditChannelModal from './EditChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
-import { setActive } from '../../store/slices/channelsSlice.js';
+// import { setActive } from '../../store/slices/channelsSlice.js';
 
 const ChannelItem = ({ channel, handlers }) => {
   // модалка для эдита
@@ -19,22 +20,20 @@ const ChannelItem = ({ channel, handlers }) => {
   const handleCloseRemoveModal = () => setShowRemoveModal(false);
   const handleShowRemoveModal = () => setShowRemoveModal(true);
 
-  const dispatch = useDispatch();
-  const [className, setClassName] = useState('w-100 text-start text-truncate rounded-0');
-  const handleSetActive = (activeChannel) => {
-    dispatch(setActive(activeChannel));
-    setClassName('w-100 text-start text-truncate rounded-0 active');
-  };
-
   const { t } = useTranslation();
+
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
+  const activeClassName = 'w-100 text-start text-truncate rounded-0 active';
+  const className = 'w-100 text-start text-truncate rounded-0';
 
   if (!channel.removable) {
     return (
       <Nav.Item className="w-100">
         <Nav.Link
           eventKey={channel.name}
-          onClick={() => handleSetActive(channel)}
-          className={className}
+          // ref={buttonRef}
+          onClick={() => handlers.handleSetActive(channel)}
+          className={activeChannel.id === channel.id ? activeClassName : className}
         >
           <span className="me-1">#</span>
           {channel.name}
@@ -49,9 +48,10 @@ const ChannelItem = ({ channel, handlers }) => {
         <Button
           id="removableNavElement"
           as={Nav.Link}
+          // ref={buttonRef}
           eventKey={channel.name}
-          className={className}
-          onClick={() => handleSetActive(channel)}
+          className={activeChannel.id === channel.id ? activeClassName : className}
+          onClick={() => handlers.handleSetActive(channel)}
         >
           <span className="me-1">#</span>
           {channel.name}

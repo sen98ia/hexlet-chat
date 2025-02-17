@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,12 +14,19 @@ import {
   removeChannel,
   editChannel,
 } from '../../store/api/channelsApi.js';
+import { setActive, setDefault } from '../../store/slices/channelsSlice.js';
 
 const ChannelsPanel = () => {
   const {
     data: channels, isLoading, isError, refetch,
   } = getChannels();
   const { t } = useTranslation();
+  // уставновка антивного канала
+  const dispatch = useDispatch();
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
+  const handleSetActive = (channel) => {
+    dispatch(setActive(channel));
+  };
   // добавление канала
   const [add] = addChannel();
   const handleSubmitForm = async (channelName) => {
@@ -66,7 +74,7 @@ const ChannelsPanel = () => {
               <СhannelItem
                 key={channel.id}
                 channel={channel}
-                handlers={{ handleRemove, handleEdit }}
+                handlers={{ handleRemove, handleEdit, handleSetActive }}
               />
             ))}
           </Nav>
