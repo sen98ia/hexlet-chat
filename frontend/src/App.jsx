@@ -40,7 +40,7 @@ const App = () => {
       interpolation: {
         escapeValue: false,
       },
-      debug: true,
+      debug: false,
     });
 
   const ru = filter.getDictionary('ru');
