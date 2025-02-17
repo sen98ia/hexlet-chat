@@ -77,7 +77,6 @@ const EditChannelModal = ({
             id="channelName"
             name="channelName"
             ref={inputRef}
-            // aria-label={t('modal.label')}
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName}
           />

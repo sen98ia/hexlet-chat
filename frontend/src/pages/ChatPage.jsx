@@ -35,10 +35,9 @@ const ChatPage = () => {
       }));
     };
     const handleRenameChannel = (payload) => {
-      const { id, name } = payload;
+      const { id } = payload;
       dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
-        const index = draft.findIndex((el) => el.id === id);
-        draft[index].name = name;
+        draft.map((el) => (el.id === id ? payload : el));
       }));
     };
 
