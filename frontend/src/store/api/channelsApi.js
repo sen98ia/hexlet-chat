@@ -58,12 +58,8 @@ export const channelsApi = createApi({
         invalidatesTags: ['Channel', 'Message'],
       }),
       onQueryStarted: async (channelData, { dispatch, queryFulfilled }) => {
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(setActive(data));
-        } catch (error) {
-          dispatch(setDefault());
-        }
+        await queryFulfilled;
+        dispatch(setDefault());
       },
     }),
   }),
