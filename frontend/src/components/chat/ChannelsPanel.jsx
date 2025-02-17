@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,19 +13,12 @@ import {
   removeChannel,
   editChannel,
 } from '../../store/api/channelsApi.js';
-import { setActive, setDefault } from '../../store/slices/channelsSlice.js';
 
 const ChannelsPanel = () => {
   const {
     data: channels, isLoading, isError, refetch,
   } = getChannels();
   const { t } = useTranslation();
-  // уставновка антивного канала
-  const dispatch = useDispatch();
-  const activeChannel = useSelector((state) => state.channels.activeChannel);
-  const handleSetActive = (channel) => {
-    dispatch(setActive(channel));
-  };
   // добавление канала
   const [add] = addChannel();
   const handleSubmitForm = async (channelName) => {
@@ -38,20 +30,12 @@ const ChannelsPanel = () => {
   const handleRemove = async (id) => {
     await remove(id);
     refetch();
-    // if (id === activeChannel.id) {
-    //   dispatch(setDefault());
-    //   console.log(activeChannel);
-    // }
   };
   // эдит канала
   const [edit] = editChannel();
   const handleEdit = async (id, newChannelName) => {
-    // const { data } = await edit({ id, name: newChannelName });
     await edit({ id, name: newChannelName });
     refetch();
-    // if (id === activeChannel.id) {
-    //   dispatch(setActive(data));
-    // }
   };
 
   const renderHeader = () => (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);
@@ -82,7 +66,7 @@ const ChannelsPanel = () => {
               <СhannelItem
                 key={channel.id}
                 channel={channel}
-                handlers={{ handleRemove, handleEdit, handleSetActive }}
+                handlers={{ handleRemove, handleEdit }}
               />
             ))}
           </Nav>
