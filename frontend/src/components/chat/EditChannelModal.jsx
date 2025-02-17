@@ -69,7 +69,7 @@ const EditChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Label htmlFor="channelName" hidden>{t('modal.label')}</Form.Label>
+          {/* <Form.Label htmlFor="channelName" hidden>{t('modal.label')}</Form.Label> */}
           <Form.Control
             className="mb-3"
             type="text"
@@ -77,6 +77,7 @@ const EditChannelModal = ({
             id="channelName"
             name="channelName"
             ref={inputRef}
+            aria-label={t('modal.label')}
             value={formik.values.channelName}
             isInvalid={formik.errors.channelName}
           />
