@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import AuthContext from './index.jsx';
 import { setLogOut } from '../store/slices/authSlice.js';
@@ -19,9 +19,13 @@ const AuthProvider = ({ children }) => {
     setAuth(false);
   };
 
-  // нужно ли useMemo?
+  const authMemo = useMemo(
+    () => ({ isAuth, handleLogIn, handleLogOut }),
+    [isAuth],
+  );
+
   return (
-    <AuthContext.Provider value={{ isAuth, handleLogIn, handleLogOut }}>
+    <AuthContext.Provider value={authMemo}>
       {children}
     </AuthContext.Provider>
   );

@@ -27,11 +27,9 @@ const ChatPannel = () => {
   const handleAddMessage = async (id, text, name) => {
     await add({ body: text, username: name, channelId: id });
     refetch();
-    console.log('новое сообщение');
   };
 
   if (isLoading) {
-    console.log('isLoading...chat');
     return (
       <Container className="h-100 d-flex justify-content-center align-items-center">
         <Spinner animation="border" variant="primary" />

@@ -4,7 +4,7 @@ import routes from '../../routes.js';
 export const messagesApi = createApi({
   reducerPath: 'messagesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: routes.messagesPath(),
+    baseUrl: routes.api.messagesPath(),
     prepareHeaders: (headers) => {
       const { token } = JSON.parse(localStorage.getItem('user'));
       if (token) {

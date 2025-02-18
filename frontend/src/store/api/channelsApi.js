@@ -5,7 +5,7 @@ import routes from '../../routes.js';
 export const channelsApi = createApi({
   reducerPath: 'channelsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: routes.channelsPath(),
+    baseUrl: routes.api.channelsPath(),
     prepareHeaders: (headers) => {
       const { token } = JSON.parse(localStorage.getItem('user'));
       if (token) {
