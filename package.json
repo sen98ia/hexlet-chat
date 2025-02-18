@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "Chat",
+  "description": "Real-time chat app",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "npm run build --prefix frontend",
     "start": "start-server -s ./frontend/dist"
   },
-  "author": "",
+  "author": "Esenia Zipunnikova",
   "license": "ISC",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4"
