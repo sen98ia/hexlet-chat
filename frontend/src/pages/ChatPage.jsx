@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import socket from '../socket.js';
 import { channelsApi } from '../store/api/channelsApi.js';
 import store from '../store/index.js';
-import { setActive } from '../store/slices/channelsSlice.js';
+import { setActive, setDefault } from '../store/slices/channelsSlice.js';
 import { messagesApi } from '../store/api/messagesApi.js';
 import ChatLayout from '../components/layout/ChatLayout.jsx';
 import ChatContainer from '../components/chat/ChatContainer.jsx';
@@ -30,6 +30,11 @@ const ChatPage = () => {
         const newDraft = draft.filter((el) => el.id !== id);
         return newDraft;
       }));
+      const state = store.getState();
+      const activeChannelId = state.channels.activeChannel.id;
+      if (activeChannelId === id) {
+        dispatch(setDefault());
+      }
     };
     const handleRenameChannel = (payload) => {
       const { id } = payload;

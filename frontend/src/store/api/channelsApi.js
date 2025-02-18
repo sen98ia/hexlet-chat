@@ -57,9 +57,13 @@ export const channelsApi = createApi({
         method: 'DELETE',
         invalidatesTags: ['Channel', 'Message'],
       }),
-      onQueryStarted: async (channelData, { dispatch, queryFulfilled }) => {
-        await queryFulfilled;
-        dispatch(setDefault());
+      onQueryStarted: async (channelData, { dispatch, getState, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        const state = getState();
+        const activeChannelId = state.channels.activeChannel.id;
+        if (activeChannelId === data.id) {
+          dispatch(setDefault());
+        }
       },
     }),
   }),
