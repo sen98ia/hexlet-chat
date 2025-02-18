@@ -28,7 +28,7 @@ const ChannelItem = ({ channel, handlers }) => {
         <Button
           variant={activeChannel.id === channel.id ? 'secondary' : ''}
           onClick={() => handlers.handleSetActive(channel)}
-          className="w-100 text-start text-truncate rounded-0"
+          className="w-100 rounded-0 text-start text-truncate"
         >
           <span className="me-1">#</span>
           {channel.name}
@@ -42,7 +42,7 @@ const ChannelItem = ({ channel, handlers }) => {
       <Dropdown as={ButtonGroup} className="w-100">
         <Button
           variant={activeChannel.id === channel.id ? 'secondary' : ''}
-          className="w-100 text-start text-truncate rounded-0"
+          className="w-100 rounded-0 text-start text-truncate"
           onClick={() => handlers.handleSetActive(channel)}
         >
           <span className="me-1">#</span>
