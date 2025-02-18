@@ -21,38 +21,34 @@ const ChannelItem = ({ channel, handlers }) => {
   const { t } = useTranslation();
 
   const activeChannel = useSelector((state) => state.channels.activeChannel);
-  const activeClassName = 'w-100 text-start text-truncate rounded-0 active';
-  const className = 'w-100 text-start text-truncate rounded-0';
 
   if (!channel.removable) {
     return (
-      <Nav.Item className="w-100">
-        <Nav.Link
-          eventKey={channel.name}
+      <Nav.Item as="li" className="w-100">
+        <Button
+          variant={activeChannel.id === channel.id ? 'secondary' : ''}
           onClick={() => handlers.handleSetActive(channel)}
-          className={activeChannel.id === channel.id ? activeClassName : className}
+          className="w-100 text-start text-truncate rounded-0"
         >
           <span className="me-1">#</span>
           {channel.name}
-        </Nav.Link>
+        </Button>
       </Nav.Item>
     );
   }
 
   return (
-    <Nav.Item className="w-100">
+    <Nav.Item as="li" className="w-100">
       <Dropdown as={ButtonGroup} className="w-100">
         <Button
-          id="removableNavElement"
-          as={Nav.Link}
-          eventKey={channel.name}
-          className={activeChannel.id === channel.id ? activeClassName : className}
+          variant={activeChannel.id === channel.id ? 'secondary' : ''}
+          className="w-100 text-start text-truncate rounded-0"
           onClick={() => handlers.handleSetActive(channel)}
         >
           <span className="me-1">#</span>
           {channel.name}
         </Button>
-        <Dropdown.Toggle split id="splitNavElement">
+        <Dropdown.Toggle split variant={activeChannel.id === channel.id ? 'secondary' : ''}>
           <span className="visually-hidden">{t('channelItem.control')}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>

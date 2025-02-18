@@ -68,7 +68,7 @@ const ChannelsPanel = () => {
       </Row>
       <Row className="overflow-auto h-100">
         <Col className="px-2 flex-column">
-          <Nav fill variant="pills" defaultActiveKey="general" className="flex-column">
+          <Nav fill variant="pills" as="ul" className="flex-column">
             {channels.map((channel) => (
               <СhannelItem
                 key={channel.id}
