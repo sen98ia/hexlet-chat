@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import AuthContext from './index.jsx';
 import { setLogOut } from '../store/slices/authSlice.js';
@@ -8,20 +8,20 @@ const AuthProvider = ({ children }) => {
   const [isAuth, setAuth] = useState(!!user);
   const dispatch = useDispatch();
 
-  const handleLogIn = () => {
+  const handleLogIn = useCallback(() => {
     if (localStorage.getItem('user')) {
       setAuth(true);
     }
-  };
+  }, []);
 
-  const handleLogOut = () => {
+  const handleLogOut = useCallback(() => {
     dispatch(setLogOut());
     setAuth(false);
-  };
+  }, [dispatch]);
 
   const authMemo = useMemo(
     () => ({ isAuth, handleLogIn, handleLogOut }),
-    [isAuth],
+    [isAuth, handleLogIn, handleLogOut],
   );
 
   return (
