@@ -19,7 +19,6 @@ const ChatPage = ({ socketInstance }) => {
     };
 
     const handleNewChannel = (payload) => {
-      console.log(`newChannel: ${JSON.stringify(payload)}`);
       dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
         draft.push(payload);
       }));
