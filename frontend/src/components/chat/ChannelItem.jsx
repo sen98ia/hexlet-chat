@@ -7,6 +7,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import EditChannelModal from './EditChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
+import { getActiveChannelIdSelector } from '../../store/selectors/channelsSelectors.js';
 
 const ChannelItem = ({ channel, handlers }) => {
   // модалка для эдита
@@ -20,13 +21,13 @@ const ChannelItem = ({ channel, handlers }) => {
 
   const { t } = useTranslation();
 
-  const activeChannel = useSelector((state) => state.channels.activeChannel);
+  const activeChannelId = useSelector(getActiveChannelIdSelector);
 
   if (!channel.removable) {
     return (
       <Nav.Item as="li" className="w-100">
         <Button
-          variant={activeChannel.id === channel.id ? 'secondary' : ''}
+          variant={activeChannelId === channel.id ? 'secondary' : ''}
           onClick={() => handlers.handleSetActive(channel)}
           className="w-100 rounded-0 text-start text-truncate"
         >
@@ -41,14 +42,14 @@ const ChannelItem = ({ channel, handlers }) => {
     <Nav.Item as="li" className="w-100">
       <Dropdown as={ButtonGroup} className="w-100">
         <Button
-          variant={activeChannel.id === channel.id ? 'secondary' : ''}
+          variant={activeChannelId === channel.id ? 'secondary' : ''}
           className="w-100 rounded-0 text-start text-truncate"
           onClick={() => handlers.handleSetActive(channel)}
         >
           <span className="me-1">#</span>
           {channel.name}
         </Button>
-        <Dropdown.Toggle split variant={activeChannel.id === channel.id ? 'secondary' : ''}>
+        <Dropdown.Toggle split variant={activeChannelId === channel.id ? 'secondary' : ''}>
           <span className="visually-hidden">{t('channelItem.control')}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>

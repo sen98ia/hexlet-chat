@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setActive, setDefault } from '../slices/channelsSlice.js';
 import routes from '../../routes.js';
+import { getActiveChannelIdSelector } from '../selectors/channelsSelectors.js';
 
 export const channelsApi = createApi({
   reducerPath: 'channelsApi',
@@ -42,10 +43,14 @@ export const channelsApi = createApi({
         body: editedChannel,
         invalidatesTags: ['Channel'],
       }),
-      onQueryStarted: async (channelData, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (channelData, { dispatch, getState, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setActive(data));
+          const state = getState();
+          const activeChannelId = getActiveChannelIdSelector(state);
+          if (activeChannelId === data.id) {
+            dispatch(setActive(data));
+          }
         } catch (error) {
           dispatch(setDefault());
         }
@@ -60,7 +65,7 @@ export const channelsApi = createApi({
       onQueryStarted: async (channelData, { dispatch, getState, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         const state = getState();
-        const activeChannelId = state.channels.activeChannel.id;
+        const activeChannelId = getActiveChannelIdSelector(state);
         if (activeChannelId === data.id) {
           dispatch(setDefault());
         }
