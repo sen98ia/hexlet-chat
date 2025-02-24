@@ -6,7 +6,7 @@ start:
 
 build:
 	rm -rf frontend/dist
-	cd frontend/ && npm run build
+	cd frontend/ && npm ci && npm run build
 
 start-frontend:
 	cd frontend && npm run dev
