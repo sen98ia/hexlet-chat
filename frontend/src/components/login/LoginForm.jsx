@@ -30,7 +30,6 @@ const LoginForm = () => {
         auth.handleLogIn();
         navigate(routes.pages.chat());
       } catch (error) {
-        console.log(error);
         formik.setSubmitting(false);
         setAuthFailed(true);
         if (error.status === 401) {

@@ -53,7 +53,6 @@ const RegistrationForm = () => {
         navigate(routes.pages.chat());
       } catch (error) {
         formik.setSubmitting(false);
-        console.log(error);
         if (error.status === 409) {
           setErrorMessage(t('registrationForm.errors.existingUser'));
         } else {

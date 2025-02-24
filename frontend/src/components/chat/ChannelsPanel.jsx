@@ -21,7 +21,7 @@ const ChannelsPanel = () => {
     data: channels, isLoading, isError, refetch,
   } = getChannels();
   const { t } = useTranslation();
-  // уставновка антивного канала
+  // уставновка активного канала
   const dispatch = useDispatch();
   const handleSetActive = (channel) => {
     dispatch(setActive(channel));
