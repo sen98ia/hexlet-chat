@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useSignUp } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
+import routes from '../../routes.js';
 
 const RegistrationForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -49,7 +50,7 @@ const RegistrationForm = () => {
         await signUp({ username, password }).unwrap();
         setErrorMessage('');
         auth.handleLogIn(true);
-        navigate('/');
+        navigate(routes.pages.chat());
       } catch (error) {
         formik.setSubmitting(false);
         console.log(error);

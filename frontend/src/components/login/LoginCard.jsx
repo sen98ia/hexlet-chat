@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LoginForm from './LoginForm.jsx';
 import loginImage from '../../assets/login.jpg';
+import routes from '../../routes.js';
 
 const LoginCard = () => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ const LoginCard = () => {
       </Card.Body>
       <Card.Footer className="text-center p-4">
         <span>{t('loginCard.text')}</span>
-        <Link to="/signup">{t('loginCard.link')}</Link>
+        <Link to={routes.pages.signUp()}>{t('loginCard.link')}</Link>
       </Card.Footer>
     </Card>
   );

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useLogin } from '../../store/api/usersApi.js';
 import useAuth from '../../hooks/index.jsx';
+import routes from '../../routes.js';
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -27,7 +28,7 @@ const LoginForm = () => {
         setAuthFailed(false);
         setErrorMessage('');
         auth.handleLogIn();
-        navigate('/');
+        navigate(routes.pages.chat());
       } catch (error) {
         console.log(error);
         formik.setSubmitting(false);
