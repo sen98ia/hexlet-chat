@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import socket from '../socket.js';
 import { channelsApi } from '../store/api/channelsApi.js';
 import store from '../store/index.js';
 import { setActive, setDefault } from '../store/slices/channelsSlice.js';
 import { messagesApi } from '../store/api/messagesApi.js';
 import ChatLayout from '../components/layout/ChatLayout.jsx';
 import ChatContainer from '../components/chat/ChatContainer.jsx';
+import { getActiveChannelIdSelector } from '../store/selectors/channelsSelectors.js';
 
-const ChatPage = () => {
+const ChatPage = ({ socketInstance }) => {
+  const socket = socketInstance;
   const dispatch = useDispatch();
   useEffect(() => {
     const handleNewMessage = (payload) => {
@@ -31,7 +32,7 @@ const ChatPage = () => {
         return newDraft;
       }));
       const state = store.getState();
-      const activeChannelId = state.channels.activeChannel.id;
+      const activeChannelId = getActiveChannelIdSelector(state);
       if (activeChannelId === id) {
         dispatch(setDefault());
       }
@@ -43,7 +44,7 @@ const ChatPage = () => {
         return newDraft;
       }));
       const state = store.getState();
-      const activeChannelId = state.channels.activeChannel.id;
+      const activeChannelId = getActiveChannelIdSelector(state);
       if (activeChannelId === id) {
         dispatch(setActive(payload));
       }
