@@ -3,13 +3,13 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5d80e4cc86eba11057da/maintainability)](https://codeclimate.com/github/sen98ia/frontend-project-12/maintainability)
 
 # Hexlet-chat
-Technologies Used: React, Bootstrap, Redux Toolkit, RTK Query, socket.io, leo-profanity
+Technologies used: React, Bootstrap, Redux Toolkit, RTK Query, socket.io, leo-profanity
 
 # Description
 - User authentication, login and registration
 - Real-time messaging
-- Message Censoring to filter inappropriate words
-- Channel Management that allows adding, renaming, and removing channels
+- Message censoring to filter inappropriate words
+- Channel management that allows adding, renaming, and removing channels
 
 You can try using the service by following this link: https://frontend-project-12-95ep.onrender.com/
 
