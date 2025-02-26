@@ -31,18 +31,21 @@ const ChannelsPanel = () => {
   const handleSubmitForm = async (channelName) => {
     await add({ name: channelName });
     refetch();
+    toast.success(t('toasts.channelAdded'));
   };
   // удаление канала
   const [remove] = removeChannel();
   const handleRemove = async (id) => {
     await remove(id);
     refetch();
+    toast.success(t('toasts.channelRemoved'));
   };
   // эдит канала
   const [edit] = editChannel();
   const handleEdit = async (id, newChannelName) => {
     await edit({ id, name: newChannelName });
     refetch();
+    toast.success(t('toasts.channelEdited'));
   };
 
   const renderHeader = () => (<ChannelsPanelHeader submitHandler={handleSubmitForm} />);

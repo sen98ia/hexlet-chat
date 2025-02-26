@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import createChannelSchema from '../../validation/schemas.js';
 import { getChannels } from '../../store/api/channelsApi.js';
@@ -36,7 +35,6 @@ const EditChannelModal = ({
       submitHandler(channelId, censoredChannelName);
       resetForm({ values: { channelName: censoredChannelName } });
       closeModalHandler();
-      toast.success(t('toasts.channelEdited'));
     },
   });
 

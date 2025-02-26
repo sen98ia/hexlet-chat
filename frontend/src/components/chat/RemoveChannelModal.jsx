@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { toast } from 'react-toastify';
 import { getChannels } from '../../store/api/channelsApi.js';
 
 const RemoveChannelModal = ({
@@ -10,11 +9,6 @@ const RemoveChannelModal = ({
 }) => {
   const { isLoading } = getChannels();
   const { t } = useTranslation();
-
-  const handleRemove = () => {
-    submitHandler(channelId);
-    toast.success(t('toasts.channelRemoved'));
-  };
 
   return (
     <Modal
@@ -35,7 +29,7 @@ const RemoveChannelModal = ({
           <Button
             variant="danger"
             type="submit"
-            onClick={handleRemove}
+            onClick={() => submitHandler(channelId)}
             disabled={isLoading}
           >
             {t('modal.remove')}
