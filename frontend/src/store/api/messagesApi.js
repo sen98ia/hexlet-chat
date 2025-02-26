@@ -26,21 +26,6 @@ export const messagesApi = createApi({
         invalidatesTags: ['Message'],
       }),
     }),
-    editMessage: builder.mutation({
-      query: ({ id, ...editedMessage }) => ({
-        url: id,
-        method: 'PATCH',
-        body: editedMessage,
-        invalidatesTags: ['Message'],
-      }),
-    }),
-    removeMessage: builder.mutation({
-      query: (id) => ({
-        url: id,
-        method: 'DELETE',
-        invalidatesTags: ['Message'],
-      }),
-    }),
   }),
 });
 
