@@ -1,37 +1,33 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { useFormik } from 'formik';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import * as Yup from 'yup';
 import filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import createChannelSchema from '../../validation/schemas.js';
 import { getChannels } from '../../store/api/channelsApi.js';
 
 const AddChannelModal = ({
   submitHandler, showModalHandler, closeModalHandler,
 }) => {
   const { data: channels, isLoading } = getChannels();
-  const channelNames = channels.map((channel) => channel.name);
+  const channelNames = useMemo(() => channels.map((channel) => channel.name), [channels]);
 
   const { t } = useTranslation();
 
-  const channelNameValidationSchema = Yup.object().shape({
-    channelName: Yup.string()
-      .transform((value) => filter.clean(value))
-      .min(3, t('modal.errors.channelName'))
-      .max(20, t('modal.errors.channelName'))
-      .notOneOf(channelNames, t('modal.errors.existingChannel'))
-      .required(t('requiredField')),
-  });
+  const channelSchema = useMemo(
+    () => createChannelSchema(channelNames, filter, t),
+    [channelNames, t],
+  );
 
   const formik = useFormik({
     initialValues: {
       channelName: '',
     },
-    validationSchema: channelNameValidationSchema,
+    validationSchema: channelSchema,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
