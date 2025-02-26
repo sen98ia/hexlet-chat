@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -24,6 +24,13 @@ const ChatPannel = () => {
     }
   }, [messages]);
 
+  const filteredMessages = useMemo(() => {
+    if (!messages) return [];
+    return messages.filter(({ channelId }) => channelId === activeChannelId);
+  }, [messages, activeChannelId]);
+
+  const messagesCount = useMemo(() => filteredMessages.length, [filteredMessages]);
+
   const { t } = useTranslation();
 
   const handleAddMessage = async (id, text, name) => {
@@ -38,8 +45,6 @@ const ChatPannel = () => {
       </Container>
     );
   }
-
-  const messagesCount = messages.filter(({ channelId }) => activeChannelId === channelId).length;
 
   return (
     <Container fluid className="d-flex flex-column h-100 m-0">
@@ -62,15 +67,14 @@ const ChatPannel = () => {
       </Row>
       <Row className="overflow-auto" ref={scrollRef}>
         <Col className="mx-md-5 flex-column">
-          {messages && messages.filter(({ channelId }) => channelId === activeChannelId)
-            .map((message) => (
-              <Container key={message.id} className="text-break mb-2">
-                <b>{message.username}</b>
-                :
-                {' '}
-                {message.body}
-              </Container>
-            ))}
+          {filteredMessages && filteredMessages.map((message) => (
+            <Container key={message.id} className="text-break mb-2">
+              <b>{message.username}</b>
+              :
+              {' '}
+              {message.body}
+            </Container>
+          ))}
         </Col>
       </Row>
       <Row className="mt-auto">
