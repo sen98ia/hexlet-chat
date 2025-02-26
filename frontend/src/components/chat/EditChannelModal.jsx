@@ -14,7 +14,8 @@ const EditChannelModal = ({
 }) => {
   const { data: channels, isLoading } = getChannels();
   const channelNames = useMemo(() => channels.map((channel) => channel.name), [channels]);
-  const currentChannelName = channels.find((channel) => channel.id === channelId).name;
+  const currentChannelName = useMemo(() => channels
+    .find((channel) => channel.id === channelId).name, [channels, channelId]);
 
   const { t } = useTranslation();
 

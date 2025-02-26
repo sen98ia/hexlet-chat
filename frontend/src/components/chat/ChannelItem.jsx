@@ -10,11 +10,10 @@ import RemoveChannelModal from './RemoveChannelModal.jsx';
 import { getActiveChannelIdSelector } from '../../store/selectors/channelsSelectors.js';
 
 const ChannelItem = ({ channel, handlers }) => {
-  // модалка для эдита
   const [showEditModal, setShowEditModal] = useState(false);
   const handleCloseEditModal = () => setShowEditModal(false);
   const handleShowEditModal = () => setShowEditModal(true);
-  // модалка для удаления
+
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const handleCloseRemoveModal = () => setShowRemoveModal(false);
   const handleShowRemoveModal = () => setShowRemoveModal(true);

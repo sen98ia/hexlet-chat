@@ -21,26 +21,26 @@ const ChannelsPanel = () => {
     data: channels, isLoading, isError, refetch,
   } = getChannels();
   const { t } = useTranslation();
-  // уставновка активного канала
+
   const dispatch = useDispatch();
   const handleSetActive = (channel) => {
     dispatch(setActive(channel));
   };
-  // добавление канала
+
   const [add] = addChannel();
   const handleSubmitForm = async (channelName) => {
     await add({ name: channelName });
     refetch();
     toast.success(t('toasts.channelAdded'));
   };
-  // удаление канала
+
   const [remove] = removeChannel();
   const handleRemove = async (id) => {
     await remove(id);
     refetch();
     toast.success(t('toasts.channelRemoved'));
   };
-  // эдит канала
+
   const [edit] = editChannel();
   const handleEdit = async (id, newChannelName) => {
     await edit({ id, name: newChannelName });
