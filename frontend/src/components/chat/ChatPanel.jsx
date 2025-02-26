@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Spinner from 'react-bootstrap/Spinner';
 import { useTranslation } from 'react-i18next';
+import SpinnerComponent from '../layout/Spinner.jsx';
 import ChatForm from './ChatForm.jsx';
 import { getMessages, addMessage } from '../../store/api/messagesApi.js';
 import { getActiveChannelIdSelector, getActiveChannelNameSelector } from '../../store/selectors/channelsSelectors.js';
@@ -40,9 +40,7 @@ const ChatPannel = () => {
 
   if (isLoading) {
     return (
-      <Container className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner animation="border" variant="primary" />
-      </Container>
+      <SpinnerComponent />
     );
   }
 

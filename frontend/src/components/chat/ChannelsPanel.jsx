@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
-import Spinner from 'react-bootstrap/Spinner';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import ChannelsPanelHeader from './ChannelsPanelHeader.jsx';
@@ -15,6 +14,7 @@ import {
   editChannel,
 } from '../../store/api/channelsApi.js';
 import { setActive } from '../../store/slices/channelsSlice.js';
+import SpinnerComponent from '../layout/Spinner.jsx';
 
 const ChannelsPanel = () => {
   const {
@@ -52,9 +52,7 @@ const ChannelsPanel = () => {
 
   if (isLoading) {
     return (
-      <Container className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner animation="border" variant="primary" />
-      </Container>
+      <SpinnerComponent />
     );
   }
 
