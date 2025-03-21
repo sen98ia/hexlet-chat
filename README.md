@@ -1,8 +1,8 @@
 [![Actions Status](https://github.com/sen98ia/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/sen98ia/frontend-project-12/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5d80e4cc86eba11057da/maintainability)](https://codeclimate.com/github/sen98ia/frontend-project-12/maintainability)
 
-# :inbox_tray: Hexlet-chat
-Technologies used: React, Bootstrap, Redux Toolkit, RTK Query, socket.io, leo-profanity
+# :speech_balloon: Hexlet-chat
+Technologies used: React, Bootstrap, Redux Toolkit, RTK Query, socket.io, leo-profanity.
 
 ## Description
 - User authentication, login and registration
@@ -17,10 +17,10 @@ Node.js v22.2.0 or higher.
 
 ## Setup
 ```
-git clone git@github.com:sen98ia/frontend-project-12.git
+git clone git@github.com:sen98ia/hexlet-chat.git
 ```
 ```
-cd frontend-project-12
+cd hexlet-chat
 ```
 ```
 npm install
